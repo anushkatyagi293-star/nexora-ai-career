@@ -4,8 +4,8 @@
 <head>
 <meta charset="UTF-8">
 <meta name="viewport" content="width=device-width, initial-scale=1.0">
-<meta name="description" content="Nexora AI career planning, skills assessment and career development platform.">
-<title>NEXORA AI — Career Intelligence</title>
+<meta name="description" content="Free career planning tools: build a personalized career roadmap, discover your strengths with a quick skills quiz, and create a resume draft. No signup needed.">
+<title>Free Career Roadmap, Skills Quiz &amp; Resume Builder | NEXORA AI</title>
 <style>
 :root{--bg:#080b16;--panel:#11172a;--line:#27304a;--purple:#a78bfa;--text:#f6f5ff;--muted:#a5aec5}
 *{box-sizing:border-box}
@@ -22,8 +22,9 @@ button.secondary{background:#1b2238;border:1px solid var(--line)}
 main{max-width:1100px;margin:auto;padding:30px 20px 65px}
 .hero{padding:58px 0 38px;max-width:780px}
 .eyebrow{color:var(--purple);font-size:12px;letter-spacing:2px;font-weight:800}
-h1{font-size:clamp(38px,7vw,68px);line-height:1.08;letter-spacing:-2px;margin:16px 0}
-h1 span{color:var(--purple)}
+.headline{font-size:clamp(38px,7vw,68px);line-height:1.08;letter-spacing:-2px;margin:16px 0;font-weight:bold}
+.headline span{color:var(--purple)}
+h1.eyebrow{font-size:12px;line-height:1.6;margin:0;text-transform:uppercase}
 h2{font-size:25px;line-height:1.2;margin:0 0 10px}
 h3{font-size:16px;margin:0 0 8px}
 p{color:var(--muted);font-size:14px}
@@ -63,8 +64,8 @@ footer{border-top:1px solid var(--line);padding:25px 10px;text-align:center;colo
 
 <main>
 <section class="hero">
-  <div class="eyebrow">CAREER INTELLIGENCE PLATFORM</div>
-  <h1>Build a career<br>without <span>limits.</span></h1>
+  <h1 class="eyebrow">Free career roadmap, skills quiz &amp; resume builder</h1>
+  <div class="headline">Build a career<br>without <span>limits.</span></div>
   <p>Discover your strengths. Create your roadmap. Turn your ambitions into your next career move with a smarter career planning toolkit.</p>
   <div class="actions">
     <button onclick="document.querySelector('#planner').scrollIntoView({behavior:'smooth'})">Explore Your Future ↗</button>
@@ -80,7 +81,7 @@ footer{border-top:1px solid var(--line);padding:25px 10px;text-align:center;colo
 </div>
 
 <section class="section" id="tools">
-  <div class="sectionhead"><div class="eyebrow">YOUR PERSONAL TOOLKIT</div><h2>Clarity creates momentum.</h2><p>Choose a tool and start building your career plan.</p></div>
+  <div class="sectionhead"><div class="eyebrow">YOUR PERSONAL TOOLKIT</div><h2>Free career planning tools to map your next move</h2><p>Choose a tool and start building your career plan.</p></div>
   <div class="grid">
     <div class="panel"><div class="icon">✧</div><h3>Career Roadmap</h3><p>Get a structured plan based on your interests and goals.</p><button onclick="document.querySelector('#planner').scrollIntoView({behavior:'smooth'})">Build roadmap</button></div>
     <div class="panel"><div class="icon">◈</div><h3>Skill Assessment</h3><p>Answer a short quiz and discover your strongest area.</p><button onclick="document.querySelector('#assessment').scrollIntoView({behavior:'smooth'})">Start assessment</button></div>
@@ -89,7 +90,7 @@ footer{border-top:1px solid var(--line);padding:25px 10px;text-align:center;colo
 </section>
 
 <section class="section" id="planner">
-  <div class="sectionhead"><div class="eyebrow">01 / CAREER PLANNER</div><h2>Your ambition, mapped out.</h2><p>Enter your details to create a personalized starter roadmap.</p></div>
+  <div class="sectionhead"><div class="eyebrow">01 / CAREER PLANNER</div><h2>Career roadmap generator: your ambition, mapped out</h2><p>Enter your details to create a personalized starter roadmap.</p></div>
   <div class="panel">
     <label for="goal">What is your career goal?</label>
     <input id="goal" placeholder="e.g. Become a UX designer">
@@ -105,7 +106,7 @@ footer{border-top:1px solid var(--line);padding:25px 10px;text-align:center;colo
 </section>
 
 <section class="section" id="assessment">
-  <div class="sectionhead"><div class="eyebrow">02 / SKILL ASSESSMENT</div><h2>Discover your working style.</h2><p>Choose the answer that describes you best.</p></div>
+  <div class="sectionhead"><div class="eyebrow">02 / SKILL ASSESSMENT</div><h2>Skills assessment quiz: discover your working style</h2><p>Choose the answer that describes you best.</p></div>
   <div class="panel">
     <div id="quiz">
       <h3>1. Which activity sounds most interesting?</h3>
@@ -127,7 +128,7 @@ footer{border-top:1px solid var(--line);padding:25px 10px;text-align:center;colo
 </section>
 
 <section class="section" id="resume">
-  <div class="sectionhead"><div class="eyebrow">03 / RESUME BUILDER</div><h2>Turn your experience into a story.</h2><p>Create a resume draft you can copy and edit.</p></div>
+  <div class="sectionhead"><div class="eyebrow">03 / RESUME BUILDER</div><h2>Resume builder: turn your experience into a story</h2><p>Create a resume draft you can copy and edit.</p></div>
   <div class="panel">
     <label for="fullName">Full name</label><input id="fullName" placeholder="Your name">
     <label for="email">Contact email</label><input id="email" type="email" placeholder="you@example.com">
@@ -141,7 +142,7 @@ footer{border-top:1px solid var(--line);padding:25px 10px;text-align:center;colo
 
 <section class="section">
   <div class="panel">
-    <div class="eyebrow">YOUR PROGRESS</div><h2>Small steps. Real momentum.</h2>
+    <div class="eyebrow">YOUR PROGRESS</div><h2>Track your career progress: small steps, real momentum</h2>
     <p id="progressText">Complete a career activity to get started.</p>
     <div style="height:8px;background:#252b40;border-radius:8px;overflow:hidden"><div id="progressBar" style="height:100%;width:0%;background:linear-gradient(90deg,#8b5cf6,#6366f1);transition:width .3s"></div></div>
     <button class="secondary" style="margin-top:15px" onclick="resetProgress()">Reset demo progress</button>
