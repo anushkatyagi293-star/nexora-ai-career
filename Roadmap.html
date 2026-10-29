@@ -1,0 +1,196 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+  <meta charset="UTF-8">
+  <meta name="viewport" content="width=device-width, initial-scale=1.0">
+  <meta name="description" content="Create a practical starter career roadmap with NEXORA AI. Explore goals, skills and actionable next steps.">
+  <title>Career Roadmap | NEXORA AI</title>
+  <style>
+    * { box-sizing: border-box; }
+    body {
+      margin: 0;
+      font-family: Arial, sans-serif;
+      color: #f6f5ff;
+      background: linear-gradient(135deg, #080b16, #171536, #101b31);
+      line-height: 1.6;
+    }
+    header {
+      padding: 20px 6%;
+      border-bottom: 1px solid #34324e;
+      display: flex;
+      justify-content: space-between;
+      align-items: center;
+      flex-wrap: wrap;
+      gap: 15px;
+    }
+    .brand { font-size: 22px; font-weight: bold; letter-spacing: 2px; }
+    .brand span { color: #a78bfa; }
+    nav { display: flex; gap: 16px; flex-wrap: wrap; }
+    a { color: #c4b5fd; text-decoration: none; }
+    nav a { font-size: 14px; }
+    main { max-width: 850px; margin: auto; padding: 45px 20px 70px; }
+    .tag { color: #c4b5fd; text-transform: uppercase; letter-spacing: 2px; font-size: 12px; font-weight: bold; }
+    h1 { font-size: clamp(32px, 6vw, 48px); line-height: 1.15; }
+    .intro { color: #b7bfd3; }
+    .panel {
+      background: rgba(20, 25, 45, .9);
+      border: 1px solid #383653;
+      border-radius: 18px;
+      padding: 25px;
+      margin-top: 25px;
+    }
+    label { display: block; margin: 17px 0 7px; font-weight: bold; }
+    input, select {
+      width: 100%;
+      padding: 13px;
+      border-radius: 10px;
+      border: 1px solid #484461;
+      background: #0d1222;
+      color: white;
+      font-size: 16px;
+    }
+    button {
+      margin-top: 22px;
+      padding: 13px 20px;
+      border: 0;
+      border-radius: 10px;
+      background: linear-gradient(135deg, #a78bfa, #6366f1);
+      color: white;
+      font-size: 15px;
+      font-weight: bold;
+      cursor: pointer;
+    }
+    #result { display: none; }
+    #result li { margin: 12px 0; color: #d5d8e8; }
+    .note { color: #a5aec5; font-size: 13px; }
+    footer { text-align: center; border-top: 1px solid #34324e; padding: 25px 15px; color: #a5aec5; font-size: 13px; }
+    @media(max-width: 600px) {
+      header { padding: 16px 5%; }
+      nav { gap: 10px; }
+      nav a { font-size: 12px; }
+      .panel { padding: 19px; }
+    }
+  </style>
+</head>
+<body>
+  <header>
+    <div class="brand">NEXORA<span> AI</span></div>
+    <nav aria-label="Main navigation">
+      <a href="index.html">Home</a>
+      <a href="about.html">About</a>
+      <a href="assessment.html">Assessment</a>
+      <a href="resume.html">Resume</a>
+      <a href="career-resources.html">Resources</a>
+    </nav>
+  </header>
+
+  <main>
+    <div class="tag">Your next step starts here</div>
+    <h1>Build your career roadmap.</h1>
+    <p class="intro">Turn your career goal into a practical starter plan. Choose your direction and experience level to see suggested next steps.</p>
+
+    <section class="panel">
+      <form id="roadmapForm">
+        <label for="goal">What is your career goal?</label>
+        <input id="goal" required maxlength="100" placeholder="e.g. Become a graphic designer">
+
+        <label for="interest">Which area interests you most?</label>
+        <select id="interest" required>
+          <option value="">Choose an area</option>
+          <option value="technology">Technology and AI</option>
+          <option value="creative">Creative design and media</option>
+          <option value="business">Business and management</option>
+          <option value="people">Education and people-focused work</option>
+          <option value="other">Other career area</option>
+        </select>
+
+        <label for="level">What is your current level?</label>
+        <select id="level" required>
+          <option value="">Choose your level</option>
+          <option value="beginner">Just starting</option>
+          <option value="learning">Already learning</option>
+          <option value="experienced">Some experience</option>
+        </select>
+
+        <button type="submit">Generate My Roadmap</button>
+      </form>
+    </section>
+
+    <section class="panel" id="result" aria-live="polite">
+      <div class="tag">Your starter plan</div>
+      <h2 id="resultTitle">Your career roadmap</h2>
+      <ol id="steps"></ol>
+      <p class="note">This is a general educational plan, not a guarantee of employment or a live AI-generated recommendation.</p>
+      <button type="button" id="reset">Create Another Roadmap</button>
+    </section>
+  </main>
+
+  <footer>
+    <div class="brand">NEXORA<span> AI</span></div>
+    <p>Career clarity for a changing world.</p>
+    <p>© <span id="year"></span> NEXORA AI</p>
+  </footer>
+
+  <script>
+    const form = document.getElementById("roadmapForm");
+    const result = document.getElementById("result");
+    const steps = document.getElementById("steps");
+
+    form.addEventListener("submit", function(event) {
+      event.preventDefault();
+
+      const goal = document.getElementById("goal").value.trim();
+      const interest = document.getElementById("interest").value;
+      const level = document.getElementById("level").value;
+
+      if (!goal || !interest || !level) {
+        alert("Please complete all fields.");
+        return;
+      }
+
+      const skillPlans = {
+        technology: "Learn relevant digital, technology and AI fundamentals.",
+        creative: "Practise design, creative production and portfolio development.",
+        business: "Build communication, planning and business fundamentals.",
+        people: "Develop communication, research and people-focused skills.",
+        other: "Research the essential skills and qualifications for your chosen field."
+      };
+
+      const learningStep = level === "beginner"
+        ? "Start with beginner-friendly lessons and learn the fundamentals."
+        : level === "learning"
+        ? "Follow a structured learning plan and practise consistently."
+        : "Strengthen your existing skills and identify areas for improvement.";
+
+      const plan = [
+        "Define your target: " + goal + ". Write down what success would look like.",
+        learningStep,
+        skillPlans[interest],
+        "Complete a small practical project that demonstrates what you can do.",
+        "Prepare a portfolio or resume, seek feedback, and review your progress each week."
+      ];
+
+      document.getElementById("resultTitle").textContent = "Roadmap for: " + goal;
+      steps.replaceChildren();
+
+      plan.forEach(function(item) {
+        const li = document.createElement("li");
+        li.textContent = item;
+        steps.appendChild(li);
+      });
+
+      result.style.display = "block";
+      result.scrollIntoView({ behavior: "smooth", block: "start" });
+    });
+
+    document.getElementById("reset").addEventListener("click", function() {
+      form.reset();
+      result.style.display = "none";
+      steps.replaceChildren();
+      form.scrollIntoView({ behavior: "smooth", block: "start" });
+    });
+
+    document.getElementById("year").textContent = new Date().getFullYear();
+  </script>
+</body>
+  </html>
