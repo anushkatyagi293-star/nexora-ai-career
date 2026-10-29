@@ -6,12 +6,18 @@
 <meta name="viewport" content="width=device-width, initial-scale=1.0">
 <meta name="description" content="Free career planning tools: build a personalized career roadmap, discover your strengths with a quick skills quiz, and create a resume draft. No signup needed.">
 <title>Free Career Roadmap, Skills Quiz &amp; Resume Builder | NEXORA AI</title>
+<meta name="theme-color" content="#080b16">
+<meta property="og:type" content="website">
+<meta property="og:title" content="Free Career Roadmap, Skills Quiz &amp; Resume Builder | NEXORA AI">
+<meta property="og:description" content="Build a personalized career roadmap, discover your strengths with a quick skills quiz, and create a resume draft. Free, no signup needed.">
+<meta name="twitter:card" content="summary">
+<link rel="icon" href="data:image/svg+xml,%3Csvg xmlns='http://www.w3.org/2000/svg' viewBox='0 0 32 32'%3E%3Crect width='32' height='32' rx='8' fill='%23080b16'/%3E%3Ctext x='16' y='23' font-size='20' font-family='system-ui,sans-serif' font-weight='800' text-anchor='middle' fill='%23a78bfa'%3EN%3C/text%3E%3C/svg%3E">
 <style>
 :root{--bg:#080b16;--panel:#11172a;--line:#27304a;--purple:#a78bfa;--text:#f6f5ff;--muted:#a5aec5}
 *{box-sizing:border-box}
 body{margin:0;background:var(--bg);color:var(--text);font-family:system-ui,-apple-system,sans-serif;line-height:1.6}
 header{padding:18px 6%;display:flex;justify-content:space-between;align-items:center;border-bottom:1px solid var(--line);position:sticky;top:0;background:#080b16f5;z-index:5}
-.brand{font-size:21px;font-weight:850;letter-spacing:2px}
+.brand{font-size:21px;font-weight:850;letter-spacing:2px;white-space:nowrap}
 .brand span{color:var(--purple)}
 nav{display:flex;gap:18px;align-items:center;flex-wrap:wrap}
 a{color:var(--muted);text-decoration:none;font-size:13px}
@@ -47,14 +53,22 @@ textarea{min-height:100px;resize:vertical}
 footer{border-top:1px solid var(--line);padding:25px 10px;text-align:center;color:var(--muted);font-size:12px}
 .tag{display:inline-block;border:1px solid #493b75;border-radius:30px;padding:4px 10px;color:#c4b5fd;font-size:11px}
 .small{font-size:12px}
+a:focus-visible,button:focus-visible,input:focus-visible,select:focus-visible,textarea:focus-visible,.option:has(input:focus-visible){outline:2px solid var(--purple);outline-offset:2px}
+.error{color:#fca5a5;font-size:13px;margin:4px 0 10px}
+.error:empty{display:none}
+#copyResume{margin-top:12px}
+.skip{position:absolute;left:-9999px;top:8px;z-index:10;background:var(--panel);color:white;padding:8px 12px;border-radius:8px}
+.skip:focus{left:8px}
+@media(prefers-reduced-motion:reduce){*{transition:none!important;scroll-behavior:auto!important}}
 @media(max-width:650px){header{padding:14px 5%;gap:10px}nav{gap:10px}nav a{font-size:11px}.grid{grid-template-columns:1fr 1fr}main{padding:20px 16px 45px}.hero{padding-top:40px}.panel{padding:16px}h2{font-size:22px}}
 @media(max-width:380px){.grid{grid-template-columns:1fr}nav{gap:7px}}
 </style>
 </head>
 <body>
+<a class="skip" href="#main">Skip to content</a>
 <header>
   <div class="brand">NEXORA<span> AI</span></div>
-  <nav>
+  <nav aria-label="Main navigation">
     <a href="#tools">TOOLS</a>
     <a href="#assessment">ASSESSMENT</a>
     <a href="#resume">RESUME</a>
@@ -62,7 +76,7 @@ footer{border-top:1px solid var(--line);padding:25px 10px;text-align:center;colo
   </nav>
 </header>
 
-<main>
+<main id="main">
 <section class="hero">
   <h1 class="eyebrow">Free career roadmap, skills quiz &amp; resume builder</h1>
   <div class="headline">Build a career<br>without <span>limits.</span></div>
@@ -100,8 +114,9 @@ footer{border-top:1px solid var(--line);padding:25px 10px;text-align:center;colo
     </select>
     <label for="level">Your current level</label>
     <select id="level"><option>Just starting</option><option>Some experience</option><option>Experienced</option></select>
+    <p id="planError" class="error" role="alert"></p>
     <button onclick="makePlan()">Generate my roadmap ↗</button>
-    <div id="planResult" class="result hidden"></div>
+    <div id="planResult" class="result hidden" tabindex="-1"></div>
   </div>
 </section>
 
@@ -121,9 +136,10 @@ footer{border-top:1px solid var(--line);padding:25px 10px;text-align:center;colo
       <label class="option"><input type="radio" name="q3" value="creative"> Imagination and visual thinking</label>
       <label class="option"><input type="radio" name="q3" value="analytical"> Research and structured thinking</label>
       <label class="option"><input type="radio" name="q3" value="people"> Listening and explaining</label>
+      <p id="quizError" class="error" role="alert"></p>
       <button onclick="scoreQuiz()">See my results</button>
     </div>
-    <div id="quizResult" class="result hidden"></div>
+    <div id="quizResult" class="result hidden" tabindex="-1"></div>
   </div>
 </section>
 
@@ -134,18 +150,21 @@ footer{border-top:1px solid var(--line);padding:25px 10px;text-align:center;colo
     <label for="email">Contact email</label><input id="email" type="email" placeholder="you@example.com">
     <label for="skills">Skills</label><input id="skills" placeholder="e.g. Design, communication, Excel">
     <label for="experience">Experience, projects or education</label><textarea id="experience" placeholder="Describe your experience honestly"></textarea>
+    <p id="resumeError" class="error" role="alert"></p>
     <button onclick="makeResume()">Create resume draft ↗</button>
-    <div id="resumeResult" class="result hidden"></div>
+    <div id="resumeResult" class="result hidden" tabindex="-1"></div>
     <button class="secondary hidden" id="copyResume" onclick="copyResumeText()">Copy resume text</button>
+    <p id="copyStatus" class="small" role="status" aria-live="polite"></p>
   </div>
 </section>
 
-<section class="section">
+<section class="section" id="progress">
   <div class="panel">
     <div class="eyebrow">YOUR PROGRESS</div><h2>Track your career progress: small steps, real momentum</h2>
-    <p id="progressText">Complete a career activity to get started.</p>
-    <div style="height:8px;background:#252b40;border-radius:8px;overflow:hidden"><div id="progressBar" style="height:100%;width:0%;background:linear-gradient(90deg,#8b5cf6,#6366f1);transition:width .3s"></div></div>
-    <button class="secondary" style="margin-top:15px" onclick="resetProgress()">Reset demo progress</button>
+    <p id="progressText" aria-live="polite">Complete a career activity to get started.</p>
+    <div role="progressbar" id="progressTrack" aria-label="Career activities completed" aria-valuemin="0" aria-valuemax="100" aria-valuenow="0" style="height:8px;background:#252b40;border-radius:8px;overflow:hidden"><div id="progressBar" style="height:100%;width:0%;background:linear-gradient(90deg,#8b5cf6,#6366f1);transition:width .3s"></div></div>
+    <button class="secondary" style="margin-top:15px" onclick="resetProgress()">Reset progress</button>
+    <p class="small">Progress is saved in this browser on this device only.</p>
   </div>
 </section>
 </main>
@@ -153,24 +172,57 @@ footer{border-top:1px solid var(--line);padding:25px 10px;text-align:center;colo
 <footer>
   <div class="brand">NEXORA<span> AI</span></div>
   <p>Career clarity for a changing world.</p>
-  <p>Independent career-planning toolkit. Recommendations are for educational purposes.</p>
+  <p>Independent career-planning toolkit. Roadmaps, quiz results and resume drafts are generated in your browser using rule-based templates, not live AI. Recommendations are for educational purposes.</p>
   <p>© <span id="year"></span> NEXORA AI · Prototype</p>
 </footer>
 
 <script>
+const STORAGE_KEY='nexora-progress-v1';
+const ACTIVITIES={plan:'Career roadmap',quiz:'Skills assessment',resume:'Resume draft'};
 const completed=new Set();
 let resumeText='';
+function loadProgress(){
+ completed.clear();
+ try{
+  const raw=localStorage.getItem(STORAGE_KEY);
+  if(!raw)return;
+  const data=JSON.parse(raw);
+  const list=Array.isArray(data)?data:(data&&Array.isArray(data.completed)?data.completed:[]);
+  list.forEach(id=>{if(Object.prototype.hasOwnProperty.call(ACTIVITIES,id))completed.add(id)});
+ }catch(e){
+  // Saved data is corrupt or storage is blocked: start fresh and clear the bad value if possible.
+  try{localStorage.removeItem(STORAGE_KEY)}catch(_){}
+ }
+}
+function saveProgress(){
+ try{localStorage.setItem(STORAGE_KEY,JSON.stringify({completed:[...completed],updated:Date.now()}))}
+ catch(e){/* Storage unavailable (e.g. private mode): progress lasts for this visit only. */}
+}
+function completeActivity(id){completed.add(id);saveProgress();updateProgress()}
 function updateProgress(){
+ const total=Object.keys(ACTIVITIES).length;
  const count=completed.size;
- const percent=Math.round(count/3*100);
+ const percent=Math.round(count/total*100);
  document.getElementById('progressMetric').textContent=percent+'%';
  document.getElementById('progressBar').style.width=percent+'%';
- document.getElementById('progressText').textContent=count===0?'Complete a career activity to get started.':count+' of 3 activities completed. Keep going!';
- document.getElementById('nextMetric').textContent=count===3?'All tools tried':count===0?'Start here':'Keep going';
+ document.getElementById('progressTrack').setAttribute('aria-valuenow',percent);
+ const done=Object.keys(ACTIVITIES).filter(id=>completed.has(id)).map(id=>ACTIVITIES[id]);
+ document.getElementById('progressText').textContent=count===0?'Complete a career activity to get started.':count+' of '+total+' activities completed ('+done.join(', ')+').'+(count===total?' Great work!':' Keep going!');
+ document.getElementById('nextMetric').textContent=count===total?'All tools tried':count===0?'Start here':'Keep going';
+}
+function showError(id,msg,field){
+ document.getElementById(id).textContent=msg;
+ if(field)field.focus();
+}
+function showResult(box){
+ box.classList.remove('hidden');
+ box.scrollIntoView({behavior:matchMedia('(prefers-reduced-motion: reduce)').matches?'auto':'smooth',block:'nearest'});
 }
 function makePlan(){
- const goal=document.getElementById('goal').value.trim();
- if(!goal){alert('Please enter your career goal first.');return}
+ const goalField=document.getElementById('goal');
+ const goal=goalField.value.trim();
+ if(!goal){showError('planError','Please enter your career goal first.',goalField);return}
+ showError('planError','');
  const area=document.getElementById('interest').value;
  const level=document.getElementById('level').value;
  const steps=[
@@ -184,11 +236,13 @@ function makePlan(){
  if(level==='Some experience')steps[1]='STEP 2 — STRENGTHEN YOUR SKILLS\nReview your current skills in '+area+' and choose one gap to improve.';
  const box=document.getElementById('planResult');
  box.textContent='YOUR STARTER ROADMAP\nGoal: '+goal+'\nInterest: '+area+'\nLevel: '+level+'\n\n'+steps.join('\n\n')+'\n\nThis is a rule-based starter plan, not a live AI-generated answer.';
- box.classList.remove('hidden');completed.add('plan');updateProgress();
+ showResult(box);completeActivity('plan');
 }
 function scoreQuiz(){
  const answers=['q1','q2','q3'].map(q=>document.querySelector('input[name="'+q+'"]:checked'));
- if(answers.some(a=>!a)){alert('Please answer all 3 questions.');return}
+ const missing=answers.findIndex(a=>!a);
+ if(missing!==-1){showError('quizError','Please answer all 3 questions (question '+(missing+1)+' is unanswered).',document.querySelector('input[name="q'+(missing+1)+'"]'));return}
+ showError('quizError','');
  const scores={creative:0,analytical:0,people:0};
  answers.forEach(a=>scores[a.value]++);
  const max=Math.max(...Object.values(scores));
@@ -197,26 +251,62 @@ function scoreQuiz(){
  const advice={creative:'Explore design, content, branding or other creative projects.',analytical:'Explore data, research, technology or structured problem-solving.',people:'Explore communication, teaching, customer success or team-oriented work.'};
  const box=document.getElementById('quizResult');
  box.textContent='YOUR REFLECTION\n'+(winners.length>1?'Your answers show a mix of strengths: ': 'Your leading area in this short quiz: ')+winners.map(w=>names[w]).join(', ')+'.\n\n'+winners.map(w=>advice[w]).join('\n')+'\n\nThis informal quiz is for reflection, not a validated psychological or professional assessment.';
- box.classList.remove('hidden');completed.add('quiz');updateProgress();
+ showResult(box);completeActivity('quiz');
 }
 function makeResume(){
- const name=document.getElementById('fullName').value.trim();
- const email=document.getElementById('email').value.trim();
- const skills=document.getElementById('skills').value.trim();
- const exp=document.getElementById('experience').value.trim();
- if(!name||!skills||!exp){alert('Please fill in your name, skills and experience or education.');return}
+ const fields={name:document.getElementById('fullName'),email:document.getElementById('email'),skills:document.getElementById('skills'),exp:document.getElementById('experience')};
+ const name=fields.name.value.trim();
+ const email=fields.email.value.trim();
+ const skills=fields.skills.value.trim();
+ const exp=fields.exp.value.trim();
+ const firstEmpty=[fields.name,fields.skills,fields.exp].find(f=>!f.value.trim());
+ if(firstEmpty){showError('resumeError','Please fill in your name, skills and experience or education.',firstEmpty);return}
+ if(email&&!fields.email.checkValidity()){showError('resumeError','Please enter a valid email address, or leave it blank.',fields.email);return}
+ showError('resumeError','');
  resumeText=name+'\n'+(email||'Contact details to be added')+'\n\nPROFESSIONAL SUMMARY\nMotivated candidate seeking opportunities to apply skills, contribute to meaningful projects and continue professional development.\n\nSKILLS\n'+skills+'\n\nEXPERIENCE / PROJECTS / EDUCATION\n'+exp+'\n';
- document.getElementById('resumeResult').textContent=resumeText;
- document.getElementById('resumeResult').classList.remove('hidden');
+ const box=document.getElementById('resumeResult');
+ box.textContent=resumeText;
  document.getElementById('copyResume').classList.remove('hidden');
- completed.add('resume');updateProgress();
+ document.getElementById('copyStatus').textContent='';
+ showResult(box);completeActivity('resume');
+}
+function legacyCopy(text){
+ const ta=document.createElement('textarea');
+ ta.value=text;ta.setAttribute('readonly','');
+ ta.style.position='fixed';ta.style.top='0';ta.style.left='-9999px';ta.style.fontSize='16px';
+ document.body.appendChild(ta);
+ ta.select();ta.setSelectionRange(0,text.length);
+ let ok=false;
+ try{ok=document.execCommand('copy')}catch(e){}
+ document.body.removeChild(ta);
+ return ok;
 }
 async function copyResumeText(){
- try{await navigator.clipboard.writeText(resumeText);alert('Resume copied! You can paste it into your document.')}
- catch(e){alert('Please select the resume text and copy it manually.')}
+ const status=document.getElementById('copyStatus');
+ if(!resumeText){status.textContent='Create a resume draft first.';return}
+ let ok=false;
+ if(navigator.clipboard&&window.isSecureContext){
+  try{await navigator.clipboard.writeText(resumeText);ok=true}catch(e){}
+ }
+ if(!ok)ok=legacyCopy(resumeText);
+ if(ok){status.textContent='Resume copied! You can paste it into your document.'}
+ else{
+  status.textContent='Copying was blocked by your browser. The text is selected — please copy it manually.';
+  const range=document.createRange();range.selectNodeContents(document.getElementById('resumeResult'));
+  const sel=window.getSelection();sel.removeAllRanges();sel.addRange(range);
+ }
 }
-function resetProgress(){completed.clear();updateProgress()}
+function resetProgress(){
+ if(completed.size&&!confirm('Reset your saved progress?'))return;
+ completed.clear();
+ try{localStorage.removeItem(STORAGE_KEY)}catch(e){}
+ updateProgress();
+}
+// Keep progress in sync across tabs and when the page is restored from the back/forward cache.
+window.addEventListener('storage',e=>{if(e.key===STORAGE_KEY||e.key===null){loadProgress();updateProgress()}});
+window.addEventListener('pageshow',()=>{loadProgress();updateProgress()});
 document.getElementById('year').textContent=new Date().getFullYear();
+loadProgress();
 updateProgress();
 </script>
 </body>
