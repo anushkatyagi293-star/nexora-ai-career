@@ -1,0 +1,173 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+  <meta charset="UTF-8">
+  <meta name="viewport" content="width=device-width, initial-scale=1.0">
+  <meta name="description" content="Explore your interests and reflect on your strengths with the NEXORA AI career skills assessment.">
+  <title>Skills Assessment | NEXORA AI</title>
+  <style>
+    * { box-sizing: border-box; }
+    body {
+      margin: 0;
+      font-family: Arial, sans-serif;
+      color: #f6f5ff;
+      background: linear-gradient(135deg, #080b16, #171536, #101b31);
+      line-height: 1.6;
+    }
+    header {
+      padding: 20px 6%;
+      border-bottom: 1px solid #34324e;
+      display: flex;
+      justify-content: space-between;
+      align-items: center;
+      flex-wrap: wrap;
+      gap: 15px;
+    }
+    .brand { font-size: 22px; font-weight: bold; letter-spacing: 2px; }
+    .brand span { color: #a78bfa; }
+    nav { display: flex; gap: 15px; flex-wrap: wrap; }
+    nav a, a { color: #c4b5fd; text-decoration: none; }
+    nav a { font-size: 14px; }
+    main { max-width: 850px; margin: auto; padding: 40px 20px 70px; }
+    .tag { color: #c4b5fd; text-transform: uppercase; letter-spacing: 2px; font-size: 12px; font-weight: bold; }
+    h1 { font-size: clamp(32px, 6vw, 46px); line-height: 1.15; }
+    .intro, .muted { color: #b7bfd3; }
+    .panel {
+      background: rgba(20, 25, 45, .9);
+      border: 1px solid #383653;
+      border-radius: 18px;
+      padding: 24px;
+      margin-top: 22px;
+    }
+    .question { padding: 17px 0; border-bottom: 1px solid #34324e; }
+    .question:last-child { border-bottom: 0; }
+    .question p { font-weight: bold; }
+    label { display: block; padding: 7px 0; color: #d9d9e8; cursor: pointer; }
+    input { accent-color: #a78bfa; margin-right: 9px; }
+    button {
+      margin-top: 20px; padding: 13px 19px; border: 0; border-radius: 10px;
+      background: linear-gradient(135deg, #a78bfa, #6366f1);
+      color: white; font-size: 15px; font-weight: bold; cursor: pointer;
+    }
+    #result { display: none; }
+    footer { text-align: center; border-top: 1px solid #34324e; padding: 25px 15px; color: #a5aec5; font-size: 13px; }
+    @media(max-width: 600px) {
+      header { padding: 16px 5%; }
+      nav { gap: 10px; }
+      nav a { font-size: 12px; }
+      .panel { padding: 18px; }
+    }
+  </style>
+</head>
+<body>
+  <header>
+    <div class="brand">NEXORA<span> AI</span></div>
+    <nav aria-label="Main navigation">
+      <a href="index.html">Home</a>
+      <a href="about.html">About</a>
+      <a href="roadmap.html">Roadmap</a>
+      <a href="resume.html">Resume</a>
+      <a href="career-resources.html">Resources</a>
+    </nav>
+  </header>
+
+  <main>
+    <div class="tag">Discover your strengths</div>
+    <h1>Skills and interests assessment.</h1>
+    <p class="intro">Answer three short questions to reflect on your preferences and explore a possible starting direction.</p>
+
+    <form id="quiz" class="panel">
+      <div class="question">
+        <p>1. Which activity sounds most interesting to you?</p>
+        <label><input type="radio" name="q1" value="creative" required> Designing, creating or making content</label>
+        <label><input type="radio" name="q1" value="analytical"> Solving problems and working with data</label>
+        <label><input type="radio" name="q1" value="people"> Helping, teaching or working with people</label>
+      </div>
+
+      <div class="question">
+        <p>2. Which task would you prefer?</p>
+        <label><input type="radio" name="q2" value="creative" required> Developing a new idea or visual concept</label>
+        <label><input type="radio" name="q2" value="analytical"> Finding patterns and improving a process</label>
+        <label><input type="radio" name="q2" value="people"> Explaining something to another person</label>
+      </div>
+
+      <div class="question">
+        <p>3. What motivates you most?</p>
+        <label><input type="radio" name="q3" value="creative" required> Expressing ideas in original ways</label>
+        <label><input type="radio" name="q3" value="analytical"> Understanding how things work</label>
+        <label><input type="radio" name="q3" value="people"> Making a positive difference for others</label>
+      </div>
+
+      <button type="submit">See My Reflection</button>
+    </form>
+
+    <section class="panel" id="result" aria-live="polite">
+      <div class="tag">Your reflection</div>
+      <h2 id="resultTitle"></h2>
+      <p id="resultText" class="muted"></p>
+      <p class="muted">This short quiz is for self-reflection only. It is not a validated aptitude test or a professional career diagnosis.</p>
+      <a href="roadmap.html">Create a career roadmap →</a>
+      <br>
+      <button type="button" id="retry">Try Again</button>
+    </section>
+  </main>
+
+  <footer>
+    <div class="brand">NEXORA<span> AI</span></div>
+    <p>Career clarity for a changing world.</p>
+    <p>© <span id="year"></span> NEXORA AI</p>
+  </footer>
+
+  <script>
+    const quiz = document.getElementById("quiz");
+    const result = document.getElementById("result");
+
+    quiz.addEventListener("submit", function(event) {
+      event.preventDefault();
+
+      const data = new FormData(quiz);
+      const answers = [data.get("q1"), data.get("q2"), data.get("q3")];
+
+      if (answers.some(answer => !answer)) {
+        alert("Please answer all three questions.");
+        return;
+      }
+
+      const counts = { creative: 0, analytical: 0, people: 0 };
+      answers.forEach(answer => counts[answer]++);
+
+      let winner = "creative";
+      if (counts.analytical > counts[winner]) winner = "analytical";
+      if (counts.people > counts[winner]) winner = "people";
+
+      const profiles = {
+        creative: {
+          title: "Creative thinking",
+          text: "You selected more creative options. Explore design, writing, media, content creation or other fields where ideas and expression matter."
+        },
+        analytical: {
+          title: "Analytical thinking",
+          text: "You selected more analytical options. Explore technology, research, data, problem-solving or process improvement."
+        },
+        people: {
+          title: "People-focused interests",
+          text: "You selected more people-focused options. Explore teaching, communication, community work, customer support or team-based roles."
+        }
+      };
+
+      document.getElementById("resultTitle").textContent = profiles[winner].title;
+      document.getElementById("resultText").textContent = profiles[winner].text;
+      result.style.display = "block";
+      result.scrollIntoView({ behavior: "smooth", block: "start" });
+    });
+
+    document.getElementById("retry").addEventListener("click", function() {
+      quiz.reset();
+      result.style.display = "none";
+      quiz.scrollIntoView({ behavior: "smooth", block: "start" });
+    });
+
+    document.getElementById("year").textContent = new Date().getFullYear();
+  </script>
+</body>
+    </html>
