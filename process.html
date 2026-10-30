@@ -1,0 +1,159 @@
+
+<!DOCTYPE html>
+<html lang="en">
+<head>
+<meta charset="UTF-8">
+<meta name="viewport" content="width=device-width, initial-scale=1.0">
+<meta name="description" content="Track your career planning activities, milestones and progress with NEXORA AI.">
+<title>Progress Tracker | NEXORA AI</title>
+<style>
+*{box-sizing:border-box}
+body{margin:0;font-family:Arial,sans-serif;background:#090d1d;color:#f5f6ff;line-height:1.7}
+header{padding:22px 8%;display:flex;justify-content:space-between;align-items:center;flex-wrap:wrap;gap:15px;border-bottom:1px solid #252b46}
+.logo{font-size:25px;font-weight:800;color:#a78bfa}
+nav a{color:#d5d8eb;text-decoration:none;margin:0 9px;font-size:14px}
+nav a:hover{color:#a78bfa}
+.hero{text-align:center;padding:65px 20px 40px;background:linear-gradient(135deg,#17143a,#101b35)}
+.hero h1{font-size:clamp(32px,6vw,46px);margin:0 0 12px}
+.hero p{color:#c0c5dc}
+.container{max-width:850px;margin:40px auto;padding:0 20px}
+.card{background:#141a30;border:1px solid #303653;border-radius:16px;padding:25px;margin-bottom:22px}
+h2{color:#c4b5fd;margin-top:0}
+.progress-track{height:14px;background:#303653;border-radius:20px;overflow:hidden;margin:18px 0}
+.progress-fill{height:100%;width:0;background:linear-gradient(90deg,#8065ed,#b59bff);transition:width .3s}
+.stat{font-size:32px;font-weight:bold;color:#c4b5fd}
+.task{display:flex;align-items:center;gap:12px;padding:13px 0;border-bottom:1px solid #303653}
+.task:last-child{border:0}
+.task input{width:18px;height:18px;accent-color:#a78bfa}
+.task label{flex:1}
+button{background:#8065ed;color:white;border:0;border-radius:9px;padding:12px 20px;font-weight:bold;cursor:pointer;margin:8px 8px 0 0}
+button:hover{background:#6d51d8}
+.secondary{background:#303653}
+.note{color:#aab2cc;font-size:14px}
+footer{text-align:center;padding:30px 15px;color:#929bb8;border-top:1px solid #252b46;margin-top:60px}
+footer a{color:#b9a5ff;text-decoration:none}
+</style>
+</head>
+<body>
+
+<header>
+<div class="logo">NEXORA AI</div>
+<nav>
+<a href="index.html">Home</a>
+<a href="roadmap.html">Roadmap</a>
+<a href="assessment.html">Assessment</a>
+<a href="resume.html">Resume</a>
+<a href="faq.html">FAQ</a>
+</nav>
+</header>
+
+<section class="hero">
+<h1>Your Progress</h1>
+<p>Small steps. Real momentum. Keep moving towards your career goals.</p>
+</section>
+
+<main class="container">
+
+<section class="card">
+<h2>Progress Overview</h2>
+<div class="stat" id="percentage">0%</div>
+<p id="summary">You are just getting started. Choose your first activity!</p>
+<div class="progress-track">
+<div class="progress-fill" id="bar"></div>
+</div>
+<p id="count">0 of 6 activities completed</p>
+</section>
+
+<section class="card">
+<h2>Your Career Activities</h2>
+
+<div class="task">
+<input type="checkbox" id="task1">
+<label for="task1">Explore your career interests</label>
+</div>
+
+<div class="task">
+<input type="checkbox" id="task2">
+<label for="task2">Identify your strengths and skills</label>
+</div>
+
+<div class="task">
+<input type="checkbox" id="task3">
+<label for="task3">Create your career roadmap</label>
+</div>
+
+<div class="task">
+<input type="checkbox" id="task4">
+<label for="task4">Complete your skills assessment</label>
+</div>
+
+<div class="task">
+<input type="checkbox" id="task5">
+<label for="task5">Prepare your resume draft</label>
+</div>
+
+<div class="task">
+<input type="checkbox" id="task6">
+<label for="task6">Set your next career milestone</label>
+</div>
+
+<button onclick="updateProgress()">Update Progress</button>
+<button class="secondary" onclick="resetProgress()">Reset Progress</button>
+<p class="note">Your activity progress is saved in this browser on this device.</p>
+</section>
+
+<section class="card">
+<h2>Keep Moving Forward</h2>
+<p>Progress is built through consistent action. Focus on one meaningful step at a time, review your goals and celebrate every achievement.</p>
+<a href="roadmap.html" style="color:#b9a5ff">Return to your Career Roadmap →</a>
+</section>
+
+</main>
+
+<footer>
+<p>© 2026 NEXORA AI. All rights reserved.</p>
+<p>Career clarity for a changing world.</p>
+<a href="index.html">Back to Home</a>
+</footer>
+
+<script>
+const ids=["task1","task2","task3","task4","task5","task6"];
+
+function updateProgress(){
+let completed=0;
+ids.forEach(id=>{
+const checked=document.getElementById(id).checked;
+localStorage.setItem("nexora_"+id,checked);
+if(checked)completed++;
+});
+
+const percent=Math.round(completed/ids.length*100);
+document.getElementById("percentage").textContent=percent+"%";
+document.getElementById("bar").style.width=percent+"%";
+document.getElementById("count").textContent=completed+" of 6 activities completed";
+
+let message="You are just getting started. Choose your first activity!";
+if(completed>0 && completed<6)message="Great work! Keep taking small steps forward.";
+if(completed===6)message="Amazing! You have completed all your activities.";
+
+document.getElementById("summary").textContent=message;
+}
+
+function resetProgress(){
+if(!confirm("Are you sure you want to reset your progress?"))return;
+ids.forEach(id=>{
+document.getElementById(id).checked=false;
+localStorage.removeItem("nexora_"+id);
+});
+updateProgress();
+}
+
+ids.forEach(id=>{
+document.getElementById(id).checked=localStorage.getItem("nexora_"+id)==="true";
+});
+updateProgress();
+</script>
+
+</body>
+  </html>
+  
