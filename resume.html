@@ -1,0 +1,219 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+  <meta charset="UTF-8">
+  <meta name="viewport" content="width=device-width, initial-scale=1.0">
+  <meta name="description" content="Create a professional resume draft with the NEXORA AI Resume Builder.">
+  <title>Resume Builder | NEXORA AI</title>
+  <style>
+    * { box-sizing: border-box; }
+    body {
+      margin: 0;
+      font-family: Arial, sans-serif;
+      color: #f6f5ff;
+      background: linear-gradient(135deg, #080b16, #171536, #101b31);
+      line-height: 1.6;
+    }
+    header {
+      padding: 20px 6%;
+      border-bottom: 1px solid #34324e;
+      display: flex;
+      justify-content: space-between;
+      align-items: center;
+      flex-wrap: wrap;
+      gap: 15px;
+    }
+    .brand { font-size: 22px; font-weight: bold; letter-spacing: 2px; }
+    .brand span { color: #a78bfa; }
+    nav { display: flex; gap: 15px; flex-wrap: wrap; }
+    nav a, a { color: #c4b5fd; text-decoration: none; }
+    nav a { font-size: 14px; }
+    main { max-width: 900px; margin: auto; padding: 40px 20px 70px; }
+    .tag { color: #c4b5fd; text-transform: uppercase; letter-spacing: 2px; font-size: 12px; font-weight: bold; }
+    h1 { font-size: clamp(32px, 6vw, 46px); line-height: 1.15; }
+    .intro, .muted { color: #b7bfd3; }
+    .panel {
+      background: rgba(20, 25, 45, .9);
+      border: 1px solid #383653;
+      border-radius: 18px;
+      padding: 24px;
+      margin-top: 22px;
+    }
+    .fields {
+      display: grid;
+      grid-template-columns: repeat(2, minmax(0, 1fr));
+      gap: 15px;
+    }
+    .full { grid-column: 1 / -1; }
+    label { display: block; margin-bottom: 6px; font-weight: bold; }
+    input, textarea {
+      width: 100%;
+      padding: 12px;
+      border-radius: 9px;
+      border: 1px solid #484461;
+      background: #0d1222;
+      color: white;
+      font: inherit;
+    }
+    textarea { min-height: 90px; resize: vertical; }
+    button {
+      margin-top: 20px;
+      padding: 13px 19px;
+      border: 0;
+      border-radius: 10px;
+      background: linear-gradient(135deg, #a78bfa, #6366f1);
+      color: white;
+      font-size: 15px;
+      font-weight: bold;
+      cursor: pointer;
+    }
+    #output { display: none; }
+    #resumeText {
+      white-space: pre-wrap;
+      background: #0d1222;
+      border: 1px solid #484461;
+      border-radius: 10px;
+      padding: 20px;
+      color: #e6e4f4;
+      overflow-wrap: anywhere;
+    }
+    footer { text-align: center; border-top: 1px solid #34324e; padding: 25px 15px; color: #a5aec5; font-size: 13px; }
+    @media(max-width: 600px) {
+      header { padding: 16px 5%; }
+      nav { gap: 10px; }
+      nav a { font-size: 12px; }
+      .fields { grid-template-columns: 1fr; }
+      .full { grid-column: auto; }
+      .panel { padding: 18px; }
+    }
+  </style>
+</head>
+<body>
+  <header>
+    <div class="brand">NEXORA<span> AI</span></div>
+    <nav aria-label="Main navigation">
+      <a href="index.html">Home</a>
+      <a href="about.html">About</a>
+      <a href="roadmap.html">Roadmap</a>
+      <a href="assessment.html">Assessment</a>
+      <a href="career-resources.html">Resources</a>
+    </nav>
+  </header>
+
+  <main>
+    <div class="tag">Build your professional profile</div>
+    <h1>Resume Builder.</h1>
+    <p class="intro">Enter your details to create a clean, editable resume draft that you can copy and refine.</p>
+
+    <form id="resumeForm" class="panel">
+      <div class="fields">
+        <div>
+          <label for="name">Full name *</label>
+          <input id="name" required maxlength="100" placeholder="Your full name">
+        </div>
+        <div>
+          <label for="email">Email address *</label>
+          <input id="email" type="email" required maxlength="150" placeholder="you@example.com">
+        </div>
+        <div>
+          <label for="phone">Phone number</label>
+          <input id="phone" maxlength="30" placeholder="Your phone number">
+        </div>
+        <div>
+          <label for="location">Location</label>
+          <input id="location" maxlength="100" placeholder="City, Country">
+        </div>
+        <div class="full">
+          <label for="skills">Skills *</label>
+          <textarea id="skills" required maxlength="1000" placeholder="List your key skills"></textarea>
+        </div>
+        <div class="full">
+          <label for="education">Education *</label>
+          <textarea id="education" required maxlength="1500" placeholder="Your qualification, institution and year"></textarea>
+        </div>
+        <div class="full">
+          <label for="experience">Work experience</label>
+          <textarea id="experience" maxlength="2000" placeholder="Roles, responsibilities and achievements"></textarea>
+        </div>
+        <div class="full">
+          <label for="summary">Professional summary</label>
+          <textarea id="summary" maxlength="1000" placeholder="A short introduction about your professional strengths"></textarea>
+        </div>
+      </div>
+      <button type="submit">Generate Resume Draft</button>
+    </form>
+
+    <section class="panel" id="output" aria-live="polite">
+      <div class="tag">Your resume draft</div>
+      <h2>Review your details</h2>
+      <pre id="resumeText"></pre>
+      <button type="button" id="copyButton">Copy Resume</button>
+      <p id="copyStatus" class="muted" role="status"></p>
+    </section>
+  </main>
+
+  <footer>
+    <div class="brand">NEXORA<span> AI</span></div>
+    <p>Career clarity for a changing world.</p>
+    <p>© <span id="year"></span> NEXORA AI</p>
+  </footer>
+
+  <script>
+    const form = document.getElementById("resumeForm");
+    const output = document.getElementById("output");
+    const resumeText = document.getElementById("resumeText");
+
+    form.addEventListener("submit", function(event) {
+      event.preventDefault();
+
+      const name = document.getElementById("name").value.trim();
+      const email = document.getElementById("email").value.trim();
+      const phone = document.getElementById("phone").value.trim();
+      const location = document.getElementById("location").value.trim();
+      const skills = document.getElementById("skills").value.trim();
+      const education = document.getElementById("education").value.trim();
+      const experience = document.getElementById("experience").value.trim();
+      const summary = document.getElementById("summary").value.trim();
+
+      if (!name || !email || !skills || !education) {
+        alert("Please complete all required fields.");
+        return;
+      }
+
+      const draft = [
+        name.toUpperCase(),
+        [email, phone, location].filter(Boolean).join(" | "),
+        "",
+        "PROFESSIONAL SUMMARY",
+        summary || "Add a short professional introduction here.",
+        "",
+        "SKILLS",
+        skills,
+        "",
+        "EDUCATION",
+        education,
+        "",
+        "WORK EXPERIENCE",
+        experience || "Add relevant work experience or projects here."
+      ].join("\n");
+
+      resumeText.textContent = draft;
+      output.style.display = "block";
+      document.getElementById("copyStatus").textContent = "";
+      output.scrollIntoView({ behavior: "smooth", block: "start" });
+    });
+
+    document.getElementById("copyButton").addEventListener("click", async function() {
+      const status = document.getElementById("copyStatus");
+      try {
+        await navigator.clipboard.writeText(resumeText.textContent);
+        status.textContent = "Resume copied successfully.";
+      } catch (error) {
+        status.textContent = "Please select and copy the resume text manually.";
+      }
+    });
+
+    document.getElementById("year").textContent = new Date().getFullYear();
+  </script>
+</body>
+  </html>
