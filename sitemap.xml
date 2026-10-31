@@ -1,45 +1,13 @@
-
 <?xml version="1.0" encoding="UTF-8"?>
 <urlset xmlns="http://www.sitemaps.org/schemas/sitemap/0.9">
-
-  <url>
-    <loc>https://nexora-ai-career.pages.dev/</loc>
-  </url>
-
-  <url>
-    <loc>https://nexora-ai-career.pages.dev/about.html</loc>
-  </url>
-
-  <url>
-    <loc>https://nexora-ai-career.pages.dev/roadmap.html</loc>
-  </url>
-
-  <url>
-    <loc>https://nexora-ai-career.pages.dev/assessment.html</loc>
-  </url>
-
-  <url>
-    <loc>https://nexora-ai-career.pages.dev/resume.html</loc>
-  </url>
-
-  <url>
-    <loc>https://nexora-ai-career.pages.dev/resources.html</loc>
-  </url>
-
-  <url>
-    <loc>https://nexora-ai-career.pages.dev/planning.html</loc>
-  </url>
-
-  <url>
-    <loc>https://nexora-ai-career.pages.dev/faq.html</loc>
-  </url>
-
-  <url>
-    <loc>https://nexora-ai-career.pages.dev/contact.html</loc>
-  </url>
-
-  <url>
-    <loc>https://nexora-ai-career.pages.dev/progress.html</loc>
-  </url>
-
+  <url><loc>https://nexora-ai-career.pages.dev/</loc></url>
+  <url><loc>https://nexora-ai-career.pages.dev/about.html</loc></url>
+  <url><loc>https://nexora-ai-career.pages.dev/roadmap.html</loc></url>
+  <url><loc>https://nexora-ai-career.pages.dev/assessment.html</loc></url>
+  <url><loc>https://nexora-ai-career.pages.dev/resume.html</loc></url>
+  <url><loc>https://nexora-ai-career.pages.dev/career-resources.html</loc></url>
+  <url><loc>https://nexora-ai-career.pages.dev/career-planning.html</loc></url>
+  <url><loc>https://nexora-ai-career.pages.dev/faq.html</loc></url>
+  <url><loc>https://nexora-ai-career.pages.dev/contact.html</loc></url>
+  <url><loc>https://nexora-ai-career.pages.dev/progress.html</loc></url>
 </urlset>
