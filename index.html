@@ -644,66 +644,183 @@ a:hover {
   object-fit: contain;
   flex-shrink: 0;
 }
-/* 1. Sirf image ke aas-paas ki faltu spacing ko bilkul zero karne ke liye */
-.hero-image-wrapper, .image-column {
-    padding-top: 0 !important;
-    padding-bottom: 0 !important;
-    margin-top: 0 !important;
-    margin-bottom: 0 !important;
-}
+<!-- ==========================================
+     IS POORE CODE KO EK SAATH COPY-PASTE KAREIN
+     ========================================== -->
 
-/* 2. Image ko upar se niche tak poori jagah par bada (stretch/fill) karne ke liye */
-.hero-image-wrapper img, .image-column img {
-    width: 100% !important;
-    height: 100% !important;
-    min-height: 100vh; /* Yeh image ko upar se niche tak poori screen par le aayega */
-    object-fit: cover; /* Isse photo kategi ya kharab nahi dikhegi, achhi fit hogi */
-    display: block;
-}
-    
+<section class="hero-section">
+  
+  <!-- CSS SHURU (Saari design aur faltu jagah hatane ke liye) -->
+  <style>
+    .hero-section {
+      position: relative;
+      width: 100%;
+      height: 100vh; /* Poori screen ki height bina kisi faltu gap ke */
+      background-color: #0b0214; /* Nexora AI ka signature dark background color */
+      overflow: hidden;
+      display: flex;
+      align-items: center;
+      padding: 0 !important;   /* Upar-niche ki faltu spacing ko bilkul khatam (Zero) karne ke liye */
+      margin: 0 !important;    /* Kisi bhi tarah ka extra margin hatane ke liye */
+    }
+
+    /* RIGHT SIDE ANIMATED BACKGROUND (Ladki ko right side full screen piche lagane ke liye) */
+    .hero-background {
+      position: absolute;
+      top: 0;
+      right: 0;                /* Ladki ko right side mein set karne ke liye */
+      width: 60%;              /* Ladki ka area screen ke right hisse mein 50% cover karega */
+      height: 100%;            /* Upar se niche tak poori screen bina kisi extra space ke */
+      z-index: 1;              /* Isse ladki text ke PICHE chali jayegi */
+      overflow: hidden;
+    }
+
+    /* REAL IMAGE (Khuli Aankhon Wali Photo) */
+    .hero-background img {
+      width: 100%;
+      height: 100%;
+      object-fit: cover;
+      position: absolute;
+      top: 0;
+      left: 0;
+    }
+
+    /* OVERLAY ELEMENT (Aankhein band karne ka animation shadow layer) */
+    /* Yeh layer har 3 second mein ladki ki aankhon ke pass blink effect create karegi */
+    .hero-background::after {
+      content: "";
+      position: absolute;
+      /* Ladki ki aankhon ka area (Aap photo ke mutabik top/left thoda adjust kar sakti hain) */
+      top: 48%; 
+      left: 51%;
+      width: 60px;
+      height: 15px;
+      background: #0b0214; /* Background color se match karti hui layer jo aankh band karegi */
+      border-radius: 50%;
+      opacity: 0;
+      transform: scaleY(0.1);
+      z-index: 2;
+      animation: blinkEyes 3s infinite ease-in-out; /* Har 3 second mein ek baar automatic palak jhapkeiygi */
+    }
+
+    /* AANKHEIN JHAPAKNE (BLINKING) KA CODE */
+    @keyframes blinkEyes {
+      0%, 95%, 100% {
+        opacity: 0;
+        transform: scaleY(0.1);
+      }
+      97% {
+        opacity: 1;
+        transform: scaleY(1); /* 2-3 second baad sirf ek chhote pal ke liye aankh band hogi */
+      }
+    }
+
+    /* LEFT SIDE CONTENT (Likhawat aur buttons jo ladki ke upar dikhenge) */
+    .hero-content {
+      position: relative;
+      z-index: 3;              /* Iska z-index 3 hai, isliye yeh ladki ke UPAR dikhega */
+      max-width: 600px;
+      padding-left: 5%;        /* Left side se thodi achhi spacing */
+      color: #ffffff;
+    }
+
+    .hero-content h5 {
+      color: #8a2be2;
+      text-transform: uppercase;
+      letter-spacing: 1px;
+      font-size: 14px;
+      margin-bottom: 10px;
+    }
+
+    .hero-content h1 {
+      font-size: 48px;
+      font-weight: bold;
+      line-height: 1.2;
+      margin-bottom: 20px;
+    }
+
+    .hero-content p {
+      font-size: 18px;
+      color: #b3b3b3;
+      margin-bottom: 30px;
+    }
+
+    /* BUTTONS STYLE */
+    .btn-container {
+      display: flex;
+      gap: 15px;
+      margin-bottom: 30px;
+    }
+
+    .btn-purple {
+      background: linear-gradient(90deg, #8a2be2, #4a00e0);
+      color: white;
+      padding: 12px 25px;
+      border: none;
+      border-radius: 25px;
+      font-weight: bold;
+      cursor: pointer;
+    }
+
+    .btn-outline {
+      background: transparent;
+      color: white;
+      padding: 12px 25px;
+      border: 2px solid #444;
+      border-radius: 25px;
+      font-weight: bold;
+      cursor: pointer;
+    }
+
+    /* TAGS STYLE */
+    .tags-container {
+      display: flex;
+      gap: 10px;
+    }
+
+    .tag {
+      background: rgba(255, 255, 255, 0.05);
+      border: 1px solid rgba(255, 255, 255, 0.1);
+      padding: 6px 15px;
+      border-radius: 20px;
+      font-size: 12px;
+      color: #ccc;
+    }
   </style>
-</head>
-<body>
-  <a class="skip" href="#main">Skip to content</a>
+  <!-- CSS KHATAM -->
 
-  <header>
-    <div class="brand">
-  <img src="file_00000000fc5c8211b41efc5c6ab88b53.png" alt="NEXORA AI Logo" class="brand-logo">
-  NEXORA<span> AI</span>
-</div>
-    <nav aria-label="Main navigation">
-      <a href="#tools">TOOLS</a>
-      <a href="#assessment">ASSESSMENT</a>
-      <a href="#resume">RESUME</a>
-      <button onclick="document.querySelector('#planner').scrollIntoView({behavior:'smooth'})">Get Started ↗</button>
-    </nav>
-  </header>
 
-  <main id="main">
-    <section class="hero">
-      <div>
-        <h1 class="eyebrow">Free career roadmap, skills quiz &amp; resume builder</h1>
-        <div class="headline">Build a career<br>without <span>limits.</span></div>
-        <p>Discover your strengths. Create your roadmap. Turn your ambitions into your next career move with a smarter career planning toolkit.</p>
+  <!-- HTML STRUCTURE -->
 
-        <div class="actions">
-          <button onclick="document.querySelector('#planner').scrollIntoView({behavior:'smooth'})">Explore Your Future ↗</button>
-          <button class="secondary" onclick="document.querySelector('#assessment').scrollIntoView({behavior:'smooth'})">Take Skill Assessment</button>
-        </div>
+  <!-- 1. Background Image Element (Right side mein background poora fill rahega) -->
+  <div class="hero-background">
+    <!-- src="" ke andar apni ladki wali photo ka sahi naam ya link dalna mat bhooliyega -->
+    <img src="your-girl-image.png" alt="Nexora AI Girl">
+  </div>
 
-        <div class="tag-row" aria-label="Key benefits">
-          <span class="tag">No signup</span>
-          <span class="tag">Personalized plan</span>
-          <span class="tag">Browser-based tools</span>
-        </div>
-      </div>
+  <!-- 2. Frontend Text Element (Jo hamesha ladki ke upar layer bankar dikhega) -->
+  <div class="hero-content">
+    <h5>FREE CAREER ROADMAP, SKILLS QUIZ & RESUME BUILDER</h5>
+    <h1>Build a career<br><span style="color: #c97fff;">without limits.</span></h1>
+    <p>Discover your strengths. Create your roadmap. Turn your ambitions into your next career move with a smarter career planning toolkit.</p>
+    
+    <!-- Buttons -->
+    <div class="btn-container">
+      <button class="btn-purple">Explore Your Future ↗</button>
+      <button class="btn-outline">Take Skill Assessment</button>
+    </div>
 
-  <div class="hero-panel hero-visual" aria-label="NEXORA AI virtual assistant">
-  <img
-    src="1793615848538.png"
-    alt="NEXORA AI virtual assistant"
-    class="hero-girl">
-</div>
+    <!-- Tags -->
+    <div class="tags-container">
+      <span class="tag">NO SIGNUP</span>
+      <span class="tag">PERSONALIZED PLAN</span>
+      <span class="tag">BROWSER-BASED TOOLS</span>
+    </div>
+  </div>
+
+</section>
+  
+<style>
 
     </section>
 
@@ -763,9 +880,8 @@ a:hover {
       <div class="sectionhead">
         <div class="eyebrow">Your personal toolkit</div>
         <h2>Free career planning tools to map your next move</h2>
-        <p>Choose a tool and start building your career plan.</p>
-      </div>
-
+        <p>Choose a tool and start building your career plan.</p
+        </div>
       <div class="tool-grid">
         <div class="panel">
           <div class="icon">✧</div>
