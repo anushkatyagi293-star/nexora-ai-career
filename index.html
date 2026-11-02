@@ -644,183 +644,67 @@ a:hover {
   object-fit: contain;
   flex-shrink: 0;
 }
-<!-- ==========================================
-     IS POORE CODE KO EK SAATH COPY-PASTE KAREIN
-     ========================================== -->
+.hero {
+  position: relative;
+  display: block;
+  overflow: hidden;
+  min-height: 560px;
+  isolation: isolate;
+}
 
-<section class="hero-section">
-  
-  <!-- CSS SHURU (Saari design aur faltu jagah hatane ke liye) -->
-  <style>
-    .hero-section {
-      position: relative;
-      width: 100%;
-      height: 100vh; /* Poori screen ki height bina kisi faltu gap ke */
-      background-color: #0b0214; /* Nexora AI ka signature dark background color */
-      overflow: hidden;
-      display: flex;
-      align-items: center;
-      padding: 0 !important;   /* Upar-niche ki faltu spacing ko bilkul khatam (Zero) karne ke liye */
-      margin: 0 !important;    /* Kisi bhi tarah ka extra margin hatane ke liye */
-    }
+.hero > div:first-child {
+  position: relative;
+  z-index: 3;
+  width: 52%;
+  max-width: 650px;
+}
 
-    /* RIGHT SIDE ANIMATED BACKGROUND (Ladki ko right side full screen piche lagane ke liye) */
-    .hero-background {
-      position: absolute;
-      top: 0;
-      right: 0;                /* Ladki ko right side mein set karne ke liye */
-      width: 60%;              /* Ladki ka area screen ke right hisse mein 50% cover karega */
-      height: 100%;            /* Upar se niche tak poori screen bina kisi extra space ke */
-      z-index: 1;              /* Isse ladki text ke PICHE chali jayegi */
-      overflow: hidden;
-    }
+.hero-panel.hero-visual {
+  position: absolute;
+  top: 50%;
+  right: 0;
+  transform: translateY(-50%);
+  width: 50%;
+  height: 100%;
+  min-height: 560px;
+  padding: 0;
+  margin: 0;
+  display: flex;
+  align-items: center;
+  justify-content: center;
+  background: transparent !important;
+  border: none !important;
+  box-shadow: none !important;
+  overflow: hidden;
+  z-index: 1;
+}
 
-    /* REAL IMAGE (Khuli Aankhon Wali Photo) */
-    .hero-background img {
-      width: 100%;
-      height: 100%;
-      object-fit: cover;
-      position: absolute;
-      top: 0;
-      left: 0;
-    }
+.hero-girl {
+  display: block;
+  width: 100%;
+  height: 100%;
+  max-width: none;
+  max-height: none;
+  object-fit: cover;
+  object-position: center center;
+  filter: drop-shadow(0 0 28px rgba(139, 92, 246, 0.5));
+}
 
-    /* OVERLAY ELEMENT (Aankhein band karne ka animation shadow layer) */
-    /* Yeh layer har 3 second mein ladki ki aankhon ke pass blink effect create karegi */
-    .hero-background::after {
-      content: "";
-      position: absolute;
-      /* Ladki ki aankhon ka area (Aap photo ke mutabik top/left thoda adjust kar sakti hain) */
-      top: 48%; 
-      left: 51%;
-      width: 60px;
-      height: 15px;
-      background: #0b0214; /* Background color se match karti hui layer jo aankh band karegi */
-      border-radius: 50%;
-      opacity: 0;
-      transform: scaleY(0.1);
-      z-index: 2;
-      animation: blinkEyes 3s infinite ease-in-out; /* Har 3 second mein ek baar automatic palak jhapkeiygi */
-    }
+@media (max-width: 650px) {
+  .hero {
+    min-height: 500px;
+  }
 
-    /* AANKHEIN JHAPAKNE (BLINKING) KA CODE */
-    @keyframes blinkEyes {
-      0%, 95%, 100% {
-        opacity: 0;
-        transform: scaleY(0.1);
-      }
-      97% {
-        opacity: 1;
-        transform: scaleY(1); /* 2-3 second baad sirf ek chhote pal ke liye aankh band hogi */
-      }
-    }
+  .hero > div:first-child {
+    width: 65%;
+  }
 
-    /* LEFT SIDE CONTENT (Likhawat aur buttons jo ladki ke upar dikhenge) */
-    .hero-content {
-      position: relative;
-      z-index: 3;              /* Iska z-index 3 hai, isliye yeh ladki ke UPAR dikhega */
-      max-width: 600px;
-      padding-left: 5%;        /* Left side se thodi achhi spacing */
-      color: #ffffff;
-    }
-
-    .hero-content h5 {
-      color: #8a2be2;
-      text-transform: uppercase;
-      letter-spacing: 1px;
-      font-size: 14px;
-      margin-bottom: 10px;
-    }
-
-    .hero-content h1 {
-      font-size: 48px;
-      font-weight: bold;
-      line-height: 1.2;
-      margin-bottom: 20px;
-    }
-
-    .hero-content p {
-      font-size: 18px;
-      color: #b3b3b3;
-      margin-bottom: 30px;
-    }
-
-    /* BUTTONS STYLE */
-    .btn-container {
-      display: flex;
-      gap: 15px;
-      margin-bottom: 30px;
-    }
-
-    .btn-purple {
-      background: linear-gradient(90deg, #8a2be2, #4a00e0);
-      color: white;
-      padding: 12px 25px;
-      border: none;
-      border-radius: 25px;
-      font-weight: bold;
-      cursor: pointer;
-    }
-
-    .btn-outline {
-      background: transparent;
-      color: white;
-      padding: 12px 25px;
-      border: 2px solid #444;
-      border-radius: 25px;
-      font-weight: bold;
-      cursor: pointer;
-    }
-
-    /* TAGS STYLE */
-    .tags-container {
-      display: flex;
-      gap: 10px;
-    }
-
-    .tag {
-      background: rgba(255, 255, 255, 0.05);
-      border: 1px solid rgba(255, 255, 255, 0.1);
-      padding: 6px 15px;
-      border-radius: 20px;
-      font-size: 12px;
-      color: #ccc;
-    }
-  </style>
-  <!-- CSS KHATAM -->
-
-
-  <!-- HTML STRUCTURE -->
-
-  <!-- 1. Background Image Element (Right side mein background poora fill rahega) -->
-  <div class="hero-background">
-    <!-- src="" ke andar apni ladki wali photo ka sahi naam ya link dalna mat bhooliyega -->
-    <img src="your-girl-image.png" alt="Nexora AI Girl">
-  </div>
-
-  <!-- 2. Frontend Text Element (Jo hamesha ladki ke upar layer bankar dikhega) -->
-  <div class="hero-content">
-    <h5>FREE CAREER ROADMAP, SKILLS QUIZ & RESUME BUILDER</h5>
-    <h1>Build a career<br><span style="color: #c97fff;">without limits.</span></h1>
-    <p>Discover your strengths. Create your roadmap. Turn your ambitions into your next career move with a smarter career planning toolkit.</p>
-    
-    <!-- Buttons -->
-    <div class="btn-container">
-      <button class="btn-purple">Explore Your Future ↗</button>
-      <button class="btn-outline">Take Skill Assessment</button>
-    </div>
-
-    <!-- Tags -->
-    <div class="tags-container">
-      <span class="tag">NO SIGNUP</span>
-      <span class="tag">PERSONALIZED PLAN</span>
-      <span class="tag">BROWSER-BASED TOOLS</span>
-    </div>
-  </div>
-
-</section>
-  
-<style>
+  .hero-panel.hero-visual {
+    width: 55%;
+    min-height: 500px;
+    opacity: 1;
+  }
+      <style>
 
     </section>
 
