@@ -706,36 +706,67 @@ a:hover {
         <!-- MAIN ORIGINAL TEXT AND BUTTONS OVERLAY -->
         <div>
             <div class="eyebrow" style="color: #c084fc; text-transform: uppercase; letter-spacing: 1px; font-weight: bold; margin-bottom: 10px;">
+                    <!-- MAIN NAVBAR & HERO SECTION WITH PHOTO & FULL NEON GLOW BY AI -->
+    <header style="position: absolute; top: 0; left: 0; width: 100%; display: flex; align-items: center; justify-content: space-between; padding: 20px 6%; z-index: 10; background: transparent;">
+        <!-- Logo and Site Name Left Side -->
+        <div class="brand" style="display: flex; align-items: center; gap: 10px; font-size: 22px; font-weight: bold; color: white;">
+            <img class="brand-logo" src="brand-logo.png" alt="NEXORA AI Logo" style="width: 42px !important; height: 42px !important; max-width: 42px !important; max-height: 42px !important; object-fit: contain; flex-shrink: 0;" onerror="this.style.display='none';">
+            <span style="letter-spacing: 1px; text-shadow: 0 0 15px rgba(192, 132, 252, 0.65);">NEXORA AI</span>
+        </div>
+        
+        <!-- Right Side Nav Links and Get Started Button -->
+        <div style="display: flex; align-items: center; gap: 30px;">
+            <nav style="display: flex; gap: 20px; font-size: 0.9rem; font-weight: 600; letter-spacing: 0.5px; text-transform: uppercase;">
+                <a href="#tools" style="color: #cbd5e1; text-decoration: none; transition: color 0.2s ease;">Tools</a>
+                <a href="#assessment" style="color: #cbd5e1; text-decoration: none; transition: color 0.2s ease;">Assessment</a>
+                <a href="#resume" style="color: #cbd5e1; text-decoration: none; transition: color 0.2s ease;">Resume</a>
+            </nav>
+            <button onclick="document.querySelector('#tools').scrollIntoView({behavior:'smooth'})" style="background: linear-gradient(120deg, #c084fc, #9333ea, #6366f1) !important; color: white !important; border: 1px solid rgba(216, 180, 254, 0.65); box-shadow: 0 0 22px rgba(168, 85, 247, 0.48); padding: 10px 20px; font-size: 0.9rem; font-weight: 600; border-radius: 8px; cursor: pointer;">
+                Get Started ↗
+            </button>
+        </div>
+    </header>
+
+    <div class="hero" style="position: relative; display: flex; align-items: center; min-height: 100vh; padding: 120px 6% 60px 6%; overflow: hidden; isolation: isolate; background: transparent;">
+        
+        <!-- BACKGROUND PHOTO OF THE AI GIRL (Fills Screen Completely) -->
+        <div class="hero-panel hero-visual" style="position: absolute; top: 0; right: 0; width: 100%; height: 100%; z-index: 1; overflow: hidden; pointer-events: none;">
+            <img class="hero-girl" src="1793615848538.png" alt="NEXORA AI Virtual Assistant" style="display: block; width: 100%; height: 100%; object-fit: cover; object-position: right center; filter: drop-shadow(0 0 35px rgba(139, 92, 246, 0.6));">
+        </div>
+
+        <!-- MAIN TEXT AND BUTTONS OVERLAY WITH INTENSE GLOW -->
+        <div class="hero-content-fixed" style="position: relative; z-index: 5; width: 100%; max-width: 600px; text-align: left; margin-top: 20px;">
+            <div class="eyebrow" style="color: #c084fc; text-transform: uppercase; letter-spacing: 1.5px; font-weight: bold; margin-bottom: 15px; font-size: 0.9rem; text-shadow: 0 0 15px rgba(192, 132, 252, 0.5);">
                 FREE CAREER ROADMAP, SKILLS QUIZ & RESUME BUILDER
             </div>
-            <h1 style="font-size: 3rem; font-weight: 800; color: white; line-height: 1.1; margin-bottom: 20px;">
-                Build a career <br><span style="color: #d8b4fe; text-shadow: 0 0 20px rgba(192,132,252,0.65);">without limits.</span>
+            
+            <h1 style="font-size: 3.5rem; font-weight: 800; color: white; line-height: 1.1; margin-bottom: 25px; white-space: nowrap; text-shadow: 0 0 20px rgba(255,255,255,0.2);">
+                Build a career <br><span style="color: #e9d5ff; text-shadow: 0 0 30px rgba(192, 132, 252, 0.9), 0 0 15px rgba(168, 85, 247, 0.7);">without limits.</span>
             </h1>
-            <p style="font-size: 1.1rem; color: #e9d5ff; max-width: 500px; line-height: 1.5; margin-bottom: 30px; opacity: 0.9;">
+            
+            <p style="font-size: 1.15rem; color: #e9d5ff; max-width: 500px; line-height: 1.5; margin-bottom: 35px; opacity: 0.95; text-shadow: 0 0 10px rgba(25, 10, 48, 0.8);">
                 Discover your strengths. Create your roadmap. Turn your ambitions into your next career move with a smarter career planning toolkit.
             </p>
             
-            <div style="display: flex; flex-direction: column; gap: 12px; max-width: 300px;">
-                <button onclick="document.querySelector('#tools').scrollIntoView({behavior:'smooth'})" style="padding: 12px 24px; font-size: 1rem; font-weight: 600; border-radius: 8px; cursor: pointer;">
+            <div style="display: flex; flex-direction: column; gap: 14px; max-width: 320px; margin-bottom: 40px;">
+                <button onclick="document.querySelector('#tools').scrollIntoView({behavior:'smooth'})" style="padding: 14px 28px; font-size: 1rem; font-weight: 600; border-radius: 8px; cursor: pointer; text-align: center; background: linear-gradient(120deg, #c084fc, #9333ea, #6366f1) !important; color: white !important; border: 1px solid rgba(216, 180, 254, 0.65); box-shadow: 0 0 22px rgba(168, 85, 247, 0.48); padding: 10px 20px; font-size: 0.9rem; font-weight: 600; border-radius: 8px; cursor: pointer;">
                     Explore Your Future ↗
                 </button>
-                <button class="secondary" onclick="document.querySelector('#assessment').scrollIntoView({behavior:'smooth'})" style="padding: 12px 24px; font-size: 1rem; font-weight: 600; border-radius: 8px; cursor: pointer;">
+                <button class="secondary" onclick="document.querySelector('#assessment').scrollIntoView({behavior:'smooth'})" style="padding: 14px 28px; font-size: 1rem; font-weight: 600; border-radius: 8px; cursor: pointer; text-align: center; background: rgba(25, 10, 48, 0.95) !important; color: #e9d5ff !important; border: 1px solid rgba(192, 132, 252, 0.65); box-shadow: 0 0 15px rgba(168, 85, 247, 0.3);">
                     Take Skill Assessment
                 </button>
             </div>
 
-            <!-- BADGES BOTTOM -->
-            <div style="display: flex; gap: 10px; margin-top: 40px; font-size: 0.8rem; color: #e9d5ff; opacity: 0.8;">
-                <span style="border: 1px solid rgba(233,213,255,0.3); padding: 6px 12px; border-radius: 20px; background: rgba(25,10,48,0.4);">NO SIGNUP</span>
-                <span style="border: 1px solid rgba(233,213,255,0.3); padding: 6px 12px; border-radius: 20px; background: rgba(25,10,48,0.4);">PERSONALIZED PLAN</span>
-            </div>
-            <div style="display: flex; gap: 10px; margin-top: 8px; font-size: 0.8rem; color: #e9d5ff; opacity: 0.8;">
-                <span style="border: 1px solid rgba(233,213,255,0.3); padding: 6px 12px; border-radius: 20px; background: rgba(25,10,48,0.4);">BROWSER-BASED TOOLS</span>
+            <!-- BADGES BOTTOM WITH GLOWING BORDERS -->
+            <div style="display: flex; flex-wrap: wrap; gap: 10px;">
+                <span style="border: 1px solid rgba(192,132,252,0.4); padding: 6px 14px; border-radius: 20px; background: rgba(25,10,48,0.7); font-size: 0.75rem; color: #e9d5ff; font-weight: 500; box-shadow: 0 0 10px rgba(192,132,252,0.2);">NO SIGNUP</span>
+                <span style="border: 1px solid rgba(192,132,252,0.4); padding: 6px 14px; border-radius: 20px; background: rgba(25,10,48,0.7); font-size: 0.75rem; color: #e9d5ff; font-weight: 500; box-shadow: 0 0 10px rgba(192,132,252,0.2);">PERSONALIZED PLAN</span>
+                <span style="border: 1px solid rgba(192,132,252,0.4); padding: 6px 14px; border-radius: 20px; background: rgba(25,10,48,0.7); font-size: 0.75rem; color: #e9d5ff; font-weight: 500; box-shadow: 0 0 10px rgba(192,132,252,0.2);">BROWSER-BASED TOOLS</span>
             </div>
         </div>
     </div>
-  
-  <!-- STATS GRID SECTION CLEANED -->
+              
+   <!-- STATS GRID SECTION CLEANED -->
     <div class="stats-grid">
         <div class="stat-card">
             <div class="icon">✦</div>
