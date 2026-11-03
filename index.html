@@ -57,6 +57,29 @@ font-weight:900;letter-spacing:2px;
 color:#d7a4ff;
 text-shadow:0 0 18px rgba(192,132,252,.8);
 }
+.brand-logo{
+
+width: 46px;
+
+height: 46px;
+
+object-fit:contain;
+
+display:block;
+
+filter: drop-shadow (00 12px
+
+rgba(192,132,252,.8));
+
+}
+
+@media (max-width: 650px) {
+
+.brand-logo{width: 38px; height: 38px
+
+; }
+
+}
 .nav{
 display:flex;align-items:center;justify-content:flex-end;
 gap:clamp(10px,2vw,24px);flex-wrap:wrap;
@@ -192,7 +215,25 @@ display:grid;grid-template-columns:repeat(3,minmax(0,1fr));gap:18px;
 .card{padding:24px;display:flex;flex-direction:column;min-height:220px}
 .card .card-icon{font-size:27px;margin-bottom:12px;color:#dfc4ff}
 .card .btn{margin-top:auto;align-self:flex-start;padding:10px 17px;font-size:14px}
-.card a.text-link{color:#d7b4ff;font-weight:800;margin-top:auto}
+.card a.text-link{
+  display:inline-flex;
+  align-items:center;
+  width:fit-content;
+  padding:10px 14px;
+  border:1px solid rgba(192,132,252,.5);
+  border-radius:10px;
+  background:linear-gradient(110deg,rgba(192,38,255,.20),rgba(79,140,255,.20));
+  color:#f0d5ff;
+  text-shadow:0 0 12px rgba(192,132,252,.55);
+  box-shadow:0 0 16px rgba(168,85,247,.18);
+  transition:all .2s ease;
+}
+.card a.text-link:hover{
+  color:#fff;
+  border-color:#d8a5ff;
+  box-shadow:0 0 22px rgba(192,38,255,.42);
+  transform:translateY(-2px);
+}
 
 label{display:block;margin:14px 0 7px;color:#eee8fa;font-size:14px;font-weight:750}
 input,select,textarea{
@@ -286,8 +327,20 @@ html{scroll-behavior:auto}
 <body>
 
 <header class="site-header">
-<a class="brand" href="index.html" aria-label="NEXORA AI home">
+<a class="brand" href="index.html"
+
+aria-label="NEXORA AI home">
+
+<img
+
+src="file_00000000fc5c8211b41efc5c6a
+
+b88b53.png" alt="NEXORA AI Logo"
+
+class="brand-logo">
+
 <span>NEXORA AI</span>
+
 </a>
 <nav class="nav" aria-label="Main navigation">
 <a href="#tools">Tools</a>
