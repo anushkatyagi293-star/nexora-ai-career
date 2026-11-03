@@ -644,23 +644,24 @@ a:hover {
         object-fit: contain;
         flex-shrink: 0;
     }
-    /* ===== PERFECT HERO CSS WITH IMAGE BACKGROUND BY AI ===== */
+        /* ===== EXACT MATCHING STYLE FROM AI WITH FIXED IMAGE BACKGROUND ===== */
     .hero {
         position: relative;
         display: flex;
         align-items: center;
         min-height: 100vh;
-        padding: 40px 6%;
+        padding: 60px 5%;
         overflow: hidden;
         isolation: isolate;
         background: transparent;
     }
     
-    .hero > div:first-child {
+    .hero-content-fixed {
         position: relative;
-        z-index: 3;
-        width: 52%;
-        max-width: 650px;
+        z-index: 5;
+        width: 100%;
+        max-width: 600px;
+        text-align: left;
     }
     
     .hero-panel.hero-visual {
@@ -669,48 +670,33 @@ a:hover {
         right: 0;
         width: 100%;
         height: 100%;
-        padding: 0;
-        margin: 0;
-        display: flex;
-        align-items: center;
-        justify-content: center;
-        background: transparent !important;
-        border: none !important;
-        box-shadow: none !important;
-        overflow: hidden;
         z-index: 1;
+        overflow: hidden;
+        pointer-events: none;
     }
     
     .hero-girl {
         display: block;
         width: 100%;
         height: 100%;
-        max-width: none;
-        max-height: none;
         object-fit: cover;
-        object-position: center center;
+        object-position: right center;
         filter: drop-shadow(0 0 28px rgba(139, 92, 246, 0.5));
     }
     
     @media (max-width: 768px) {
         .hero {
-            padding: 20px;
-            min-height: 500px;
+            padding: 30px 20px;
         }
-        
-        .hero > div:first-child {
-            width: 100%;
-        }
-        
         .hero-panel.hero-visual {
-            opacity: 0.35;
+            opacity: 0.4;
         }
     }
     </style>
     
     </section>
-
-    <!-- SINGLE PERFECT HERO SECTION WITH PHOTO -->
+  
+ <!-- SINGLE PERFECT HERO SECTION WITH PHOTO -->
     <div class="hero">
         <!-- BACKGROUND PHOTO OF THE AI GIRL (Fills Screen Completely) -->
         <div class="hero-panel hero-visual" aria-label="NEXORA AI virtual assistant">
