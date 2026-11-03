@@ -586,3 +586,212 @@ Discover your strengths. Create your roadmap. Turn your ambitions into your next
 <div class="brand"><span>NEXORA AI</span></div>
 <p>Career clarity for a changing world.</p>
 <p>NEXORA AI provides browser-based career-planning tools. Roadmaps, quiz results and resume 
+  <script>
+const NEXORA_KEY = "nexora-progress-v1";
+
+function getNexoraProgress(){
+  try {
+    return JSON.parse(localStorage.getItem(NEXORA_KEY)) || {
+      roadmap:false,
+      assessment:false,
+      resume:false
+    };
+  } catch(error) {
+    return {roadmap:false,assessment:false,resume:false};
+  }
+}
+
+function saveNexoraProgress(data){
+  localStorage.setItem(NEXORA_KEY,JSON.stringify(data));
+  updateProgress();
+}
+
+function updateProgress(){
+  const data=getNexoraProgress();
+  const completed=Object.values(data).filter(Boolean).length;
+  const percent=Math.round(completed/3*100);
+
+  const metric=document.getElementById("progressMetric");
+  const bar=document.getElementById("progressBar");
+  const track=document.getElementById("progressTrack");
+  const message=document.getElementById("progressText");
+  const next=document.getElementById("nextMetric");
+
+  if(metric) metric.textContent=percent+"%";
+  if(bar) bar.style.width=percent+"%";
+  if(track) track.setAttribute("aria-valuenow",percent);
+
+  if(message){
+    message.textContent=completed===3
+      ?"Excellent! You completed all three career activities."
+      :completed+" of 3 career activities completed.";
+  }
+
+  if(next){
+    next.textContent=completed===3
+      ?"All complete"
+      :!data.roadmap?"Start roadmap"
+      :!data.assessment?"Take assessment"
+      :"Build resume";
+  }
+}
+
+function showResult(id,message){
+  const box=document.getElementById(id);
+  if(!box) return;
+  box.textContent=message;
+  box.classList.remove("hidden");
+  box.scrollIntoView({behavior:"smooth",block:"nearest"});
+}
+
+function makePlan(){
+  const goal=document.getElementById("goal").value.trim();
+  const interest=document.getElementById("interest").value;
+  const level=document.getElementById("level").value;
+  const error=document.getElementById("planError");
+
+  error.textContent="";
+  if(!goal){
+    error.textContent="Please enter your career goal first.";
+    document.getElementById("goal").focus();
+    return;
+  }
+
+  const plan=
+`YOUR PERSONAL CAREER ROADMAP
+
+Career goal: ${goal}
+Interest area: ${interest}
+Current level: ${level}
+
+STEP 1 — BUILD YOUR FOUNDATION
+Learn the essential concepts and understand the skills required for your goal.
+
+STEP 2 — PRACTISE
+Choose beginner-friendly projects and practise regularly. Save examples of your work.
+
+STEP 3 — BUILD YOUR PORTFOLIO
+Create 2–3 projects that demonstrate your skills and document what you learned.
+
+STEP 4 — PREPARE FOR OPPORTUNITIES
+Create a clear resume, improve your portfolio and research suitable opportunities.
+
+STEP 5 — KEEP IMPROVING
+Ask for feedback, identify skill gaps and update your learning plan.
+
+This is a starter plan. Adjust it to your experience and goals.`;
+
+  showResult("planResult",plan);
+
+  const data=getNexoraProgress();
+  data.roadmap=true;
+  saveNexoraProgress(data);
+}
+
+function scoreQuiz(){
+  const answers=["q1","q2","q3"];
+  const scores={creative:0,analytical:0,people:0};
+  const error=document.getElementById("quizError");
+  error.textContent="";
+
+  for(const name of answers){
+    const selected=document.querySelector(
+      'input[name="'+name+'"]:checked'
+    );
+    if(!selected){
+      error.textContent="Please answer all three questions.";
+      return;
+    }
+    scores[selected.value]++;
+  }
+
+  let result="creative";
+  if(scores.analytical>scores[result]) result="analytical";
+  if(scores.people>scores[result]) result="people";
+
+  const descriptions={
+    creative:"CREATIVE THINKER\nYou enjoy imagination, design and original ideas. Explore creative design, content creation and digital media careers.",
+    analytical:"ANALYTICAL THINKER\nYou enjoy logic, research and solving problems. Explore technology, data, programming and analytical careers.",
+    people:"PEOPLE-FOCUSED THINKER\nYou enjoy communication, teamwork and helping others. Explore education, management, communication and people-focused careers."
+  };
+
+  showResult("quizResult",descriptions[result]);
+
+  const data=getNexoraProgress();
+  data.assessment=true;
+  saveNexoraProgress(data);
+}
+
+function makeResume(){
+  const name=document.getElementById("fullName").value.trim();
+  const email=document.getElementById("email").value.trim();
+  const skills=document.getElementById("skills").value.trim();
+  const experience=document.getElementById("experience").value.trim();
+  const error=document.getElementById("resumeError");
+
+  error.textContent="";
+
+  if(!name||!skills||!experience){
+    error.textContent="Please fill in your name, skills and experience or education.";
+    return;
+  }
+
+  if(email && !/^[^\s@]+@[^\s@]+\.[^\s@]+$/.test(email)){
+    error.textContent="Please enter a valid email address.";
+    return;
+  }
+
+  const draft=
+`${name.toUpperCase()}
+${email}
+
+PROFESSIONAL PROFILE
+Motivated candidate with an interest in learning, developing skills and contributing to professional projects.
+
+SKILLS
+${skills}
+
+EXPERIENCE / PROJECTS / EDUCATION
+${experience}
+
+CAREER OBJECTIVE
+To apply my skills, continue learning and contribute positively in a suitable professional role.
+
+References available upon request.`;
+
+  showResult("resumeResult",draft);
+
+  const copyButton=document.getElementById("copyResume");
+  if(copyButton) copyButton.classList.remove("hidden");
+
+  const data=getNexoraProgress();
+  data.resume=true;
+  saveNexoraProgress(data);
+
+  window.nexoraResumeDraft=draft;
+}
+
+async function copyResumeText(){
+  const status=document.getElementById("copyStatus");
+  const draft=window.nexoraResumeDraft;
+
+  if(!draft){
+    status.textContent="Create your resume draft first.";
+    return;
+  }
+
+  try{
+    await navigator.clipboard.writeText(draft);
+    status.textContent="Resume draft copied successfully.";
+  }catch(error){
+    status.textContent="Copy is unavailable in this browser. Select and copy the resume text above.";
+  }
+}
+
+function resetProgress(){
+  localStorage.removeItem(NEXORA_KEY);
+  updateProgress();
+}
+
+document.addEventListener("DOMContentLoaded",updateProgress);
+</script>
