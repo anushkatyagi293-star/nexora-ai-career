@@ -795,7 +795,30 @@ id="progressFill"></div>
     messagesBox.appendChild(message);
     messagesBox.scrollTop = messagesBox.scrollHeight;
   }
+   function checkCodeAnswer(answer) {
+  const htmlIds = new Set(
+    [...answer.matchAll(/\bid\s*=\s*["']([^"']+)["']/gi)]
+      .map(match => match[1])
+  );
 
+  const jsIds = [
+    ...answer.matchAll(
+      /getElementById\s*\(\s*["']([^"']+)["']\s*\)/g
+    )
+  ].map(match => match[1]);
+
+  const missingIds = [...new Set(
+    jsIds.filter(id => !htmlIds.has(id))
+  )];
+
+  if (missingIds.length > 0) {
+    return "⚠️ NEXORA AI Code Checker: JavaScript is using these IDs, but they were not found in the provided HTML: " +
+      missingIds.join(", ") +
+      ". Please correct the code before using it.";
+  }
+
+  return "";
+}
   form.addEventListener("submit", async function (event) {
     event.preventDefault();
 
@@ -831,7 +854,15 @@ id="progressFill"></div>
       }
 
       addMessage(data.reply, "ai-bot");
+      const codeWarning =
 
+checkCodeAnswer (data.reply);
+
+if (codeWarning) {
+
+addMessage(codeWarning, "ai-bot");
+
+}
       conversation.push({
         role: "assistant",
         content: data.reply
