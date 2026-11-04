@@ -796,29 +796,48 @@ id="progressFill"></div>
     messagesBox.scrollTop = messagesBox.scrollHeight;
   }
    function checkCodeAnswer(answer) {
-  const htmlIds = new Set(
-    [...answer.matchAll(/\bid\s*=\s*["']([^"']+)["']/gi)]
-      .map(match => match[1])
-  );
+  const htmlIds = [
+    ...answer.matchAll(/\bid\s*=\s*["']([^"']+)["']/gi)
+  ].map(match => match[1]);
 
   const jsIds = [
     ...answer.matchAll(
-      /getElementById\s*\(\s*["']([^"']+)["']\s*\)/g
+      /getElementById\s*\(\s*["']([^"']+)["']\s*\)/gi
     )
   ].map(match => match[1]);
 
-  const missingIds = [...new Set(
-    jsIds.filter(id => !htmlIds.has(id))
+  const warnings = [];
+
+  const duplicateIds = [...new Set(
+    htmlIds.filter((id, index) => htmlIds.indexOf(id) !== index)
   )];
 
-  if (missingIds.length > 0) {
-    return "⚠️ NEXORA AI Code Checker: JavaScript is using these IDs, but they were not found in the provided HTML: " +
-      missingIds.join(", ") +
-      ". Please correct the code before using it.";
+  const invalidIds = htmlIds.filter(id =>
+    id.trim() !== id || /\s/.test(id)
+  );
+
+  const missingIds = [...new Set(
+    jsIds.filter(id => !htmlIds.includes(id))
+  )];
+
+  if (duplicateIds.length) {
+    warnings.push("Duplicate HTML IDs: " + duplicateIds.join(", "));
+  }
+
+  if (invalidIds.length) {
+    warnings.push("IDs containing extra spaces: " + [...new Set(invalidIds)].join(", "));
+  }
+
+  if (missingIds.length) {
+    warnings.push("JavaScript IDs not found in HTML: " + missingIds.join(", "));
+  }
+
+  if (warnings.length) {
+    return "⚠️ NEXORA AI Code Checker:\n" + warnings.join("\n");
   }
 
   return "";
-}
+   }
   form.addEventListener("submit", async function (event) {
     event.preventDefault();
 
