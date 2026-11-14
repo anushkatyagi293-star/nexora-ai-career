@@ -3,10 +3,15 @@
 <head>
   <meta charset="UTF-8">
   <meta name="viewport" content="width=device-width, initial-scale=1.0">
-  <meta name="description" content="Organize career goals, milestones and weekly actions with the NEXORA AI career planning tool.">
+  <meta name="description" content="Create a personal career plan, organize milestones, track weekly actions and monitor your career progress with NEXORA AI.">
+  <meta name="theme-color" content="#080b16">
   <title>Career Planning | NEXORA AI</title>
+
   <style>
     * { box-sizing: border-box; }
+
+    html { scroll-behavior: smooth; }
+
     body {
       margin: 0;
       font-family: Arial, sans-serif;
@@ -14,6 +19,7 @@
       background: linear-gradient(135deg, #080b16, #171536, #101b31);
       line-height: 1.6;
     }
+
     header {
       padding: 20px 6%;
       border-bottom: 1px solid #34324e;
@@ -23,58 +29,342 @@
       flex-wrap: wrap;
       gap: 15px;
     }
-    .brand { font-size: 22px; font-weight: bold; letter-spacing: 2px; }
+
+    .brand {
+      font-size: 22px;
+      font-weight: bold;
+      letter-spacing: 2px;
+    }
+
     .brand span { color: #a78bfa; }
-    nav { display: flex; gap: 15px; flex-wrap: wrap; }
-    nav a, a { color: #c4b5fd; text-decoration: none; }
+
+    nav {
+      display: flex;
+      gap: 15px;
+      flex-wrap: wrap;
+    }
+
+    nav a, a {
+      color: #c4b5fd;
+      text-decoration: none;
+    }
+
     nav a { font-size: 14px; }
-    main { max-width: 900px; margin: auto; padding: 40px 20px 70px; }
-    .tag { color: #c4b5fd; text-transform: uppercase; letter-spacing: 2px; font-size: 12px; font-weight: bold; }
-    h1 { font-size: clamp(32px, 6vw, 46px); line-height: 1.15; }
-    .intro, .muted { color: #b7bfd3; }
+
+    nav a:hover, a:hover { color: white; }
+
+    main {
+      max-width: 950px;
+      margin: auto;
+      padding: 42px 20px 70px;
+    }
+
+    .tag {
+      color: #c4b5fd;
+      text-transform: uppercase;
+      letter-spacing: 2px;
+      font-size: 12px;
+      font-weight: bold;
+    }
+
+    h1 {
+      font-size: clamp(32px, 6vw, 46px);
+      line-height: 1.15;
+      margin: 14px 0;
+    }
+
+    h1 span { color: #c084fc; }
+
+    h2 { line-height: 1.3; }
+
+    .intro, .muted {
+      color: #b7bfd3;
+    }
+
+    .intro {
+      max-width: 720px;
+      font-size: 16px;
+    }
+
     .panel {
-      background: rgba(20, 25, 45, .9);
+      background: rgba(20, 25, 45, .92);
       border: 1px solid #383653;
       border-radius: 18px;
-      padding: 24px;
-      margin-top: 22px;
+      padding: 25px;
+      margin-top: 24px;
     }
-    label { display: block; margin: 15px 0 7px; font-weight: bold; }
+
+    .panel h2 { margin-top: 8px; }
+
+    label {
+      display: block;
+      margin: 17px 0 7px;
+      font-weight: bold;
+      font-size: 14px;
+    }
+
     input, textarea {
       width: 100%;
-      padding: 12px;
+      padding: 13px;
       border-radius: 9px;
       border: 1px solid #484461;
       background: #0d1222;
       color: white;
       font: inherit;
+      outline: none;
     }
-    textarea { min-height: 85px; resize: vertical; }
-    button {
+
+    input:focus, textarea:focus {
+      border-color: #a78bfa;
+      box-shadow: 0 0 0 3px rgba(167,139,250,.13);
+    }
+
+    textarea {
+      min-height: 85px;
+      resize: vertical;
+    }
+
+    input::placeholder, textarea::placeholder {
+      color: #8992aa;
+    }
+
+    .hint {
+      color: #929bb2;
+      font-size: 12px;
+      margin-top: 5px;
+    }
+
+    .button-row {
+      display: flex;
+      flex-wrap: wrap;
+      gap: 10px;
       margin-top: 20px;
-      padding: 13px 19px;
+    }
+
+    button {
+      padding: 12px 18px;
       border: 0;
       border-radius: 10px;
       background: linear-gradient(135deg, #a78bfa, #6366f1);
       color: white;
-      font-size: 15px;
+      font-size: 14px;
       font-weight: bold;
       cursor: pointer;
     }
+
+    button:hover { filter: brightness(1.12); }
+
+    button.secondary {
+      background: transparent;
+      border: 1px solid #62548e;
+      color: #ddd6fe;
+    }
+
+    button.danger {
+      background: #49243b;
+      border: 1px solid #87466e;
+    }
+
     #result { display: none; }
-    #result li { margin: 12px 0; color: #d5d8e8; }
-    footer { text-align: center; border-top: 1px solid #34324e; padding: 25px 15px; color: #a5aec5; font-size: 13px; }
+
+    .plan-header {
+      border-bottom: 1px solid #383653;
+      padding-bottom: 15px;
+      margin-bottom: 20px;
+    }
+
+    .plan-meta {
+      color: #aeb7cd;
+      font-size: 13px;
+    }
+
+    .plan-section {
+      margin-top: 23px;
+      padding: 17px;
+      border: 1px solid #383653;
+      background: rgba(10, 15, 30, .45);
+      border-radius: 13px;
+    }
+
+    .plan-section h3 {
+      margin: 0 0 8px;
+      color: #d8ccff;
+      font-size: 17px;
+    }
+
+    .plan-section p {
+      color: #c4cadd;
+      white-space: pre-wrap;
+      overflow-wrap: anywhere;
+      margin: 0;
+    }
+
+    .progress-area { margin-top: 24px; }
+
+    .progress-top {
+      display: flex;
+      justify-content: space-between;
+      gap: 10px;
+      align-items: center;
+      flex-wrap: wrap;
+      margin-bottom: 9px;
+    }
+
+    #progressText {
+      color: #c4b5fd;
+      font-weight: bold;
+    }
+
+    .progress-track {
+      height: 12px;
+      border-radius: 20px;
+      background: #292641;
+      overflow: hidden;
+      border: 1px solid #49416c;
+    }
+
+    #progressFill {
+      width: 0%;
+      height: 100%;
+      background: linear-gradient(90deg, #8b5cf6, #4f46e5);
+      border-radius: 20px;
+      transition: width .25s ease;
+    }
+
+    .task-list {
+      display: grid;
+      gap: 11px;
+      margin-top: 15px;
+    }
+
+    .task-item {
+      display: flex;
+      align-items: flex-start;
+      gap: 11px;
+      padding: 12px;
+      background: #11172a;
+      border: 1px solid #383653;
+      border-radius: 10px;
+      cursor: pointer;
+    }
+
+    .task-item input {
+      width: 18px;
+      height: 18px;
+      margin: 2px 0 0;
+      accent-color: #a78bfa;
+      flex-shrink: 0;
+    }
+
+    .task-item span {
+      color: #d5d8e8;
+      font-size: 14px;
+    }
+
+    .task-item input:checked + span {
+      text-decoration: line-through;
+      color: #929bb2;
+    }
+
+    .status-message {
+      min-height: 20px;
+      color: #c4b5fd;
+      font-size: 13px;
+      margin-top: 10px;
+    }
+
+    .tips {
+      margin-top: 30px;
+      padding: 22px;
+      border: 1px solid #383653;
+      border-radius: 16px;
+      background: rgba(20, 25, 45, .75);
+    }
+
+    .tips li {
+      color: #b7bfd3;
+      margin: 9px 0;
+    }
+
+    footer {
+      text-align: center;
+      border-top: 1px solid #34324e;
+      padding: 25px 15px;
+      color: #a5aec5;
+      font-size: 13px;
+    }
+
+    footer p { margin: 7px 0; }
+
     @media(max-width: 600px) {
       header { padding: 16px 5%; }
       nav { gap: 10px; }
       nav a { font-size: 12px; }
       .panel { padding: 18px; }
+      main { padding-top: 30px; }
+      .button-row button { flex: 1 1 100%; }
+    }
+
+    @media print {
+      body {
+        background: white !important;
+        color: #111 !important;
+      }
+
+      header, footer, #planningForm, .tips,
+      .button-row, .no-print {
+        display: none !important;
+      }
+
+      main {
+        max-width: 100%;
+        padding: 0;
+      }
+
+      #result {
+        display: block !important;
+        background: white !important;
+        color: #111 !important;
+        border: 0 !important;
+        padding: 0 !important;
+        margin: 0 !important;
+      }
+
+      #result * {
+        color: #111 !important;
+      }
+
+      .plan-section {
+        background: white !important;
+        border: 1px solid #ccc !important;
+        break-inside: avoid;
+      }
+
+      .progress-track {
+        border: 1px solid #aaa;
+      }
+
+      #progressFill {
+        background: #777 !important;
+      }
+
+      .task-item {
+        background: white !important;
+        border: 1px solid #ccc !important;
+      }
+
+      .task-item input {
+        display: inline-block !important;
+      }
     }
   </style>
 </head>
+
 <body>
+
   <header>
     <div class="brand">NEXORA<span> AI</span></div>
+
     <nav aria-label="Main navigation">
       <a href="index.html">Home</a>
       <a href="about.html">About</a>
@@ -86,37 +376,189 @@
   </header>
 
   <main>
+
     <div class="tag">Plan with purpose</div>
-    <h1>Your career planning workspace.</h1>
-    <p class="intro">Set a direction, identify milestones and turn your ambitions into manageable weekly actions.</p>
+
+    <h1>Your career planning <span>workspace.</span></h1>
+
+    <p class="intro">
+      Set meaningful career goals, organize your milestones and turn
+      your ambitions into manageable actions. Track your progress
+      and keep moving forward, one step at a time.
+    </p>
 
     <form class="panel" id="planningForm">
-      <label for="goal">Your main career goal *</label>
-      <input id="goal" required maxlength="150" placeholder="What do you want to achieve?">
 
-      <label for="strengths">Your strengths</label>
-      <textarea id="strengths" maxlength="1000" placeholder="List your skills, interests and strengths"></textarea>
+      <div class="tag">Step 01 · Your direction</div>
+      <h2>Define Your Career Goals</h2>
+
+      <label for="goal">Your main career goal *</label>
+      <input
+        id="goal"
+        required
+        maxlength="150"
+        placeholder="Example: Become a web developer"
+      >
+
+      <label for="strengths">Your strengths and interests</label>
+      <textarea
+        id="strengths"
+        maxlength="1000"
+        placeholder="List your skills, interests and strengths"
+      ></textarea>
 
       <label for="shortTerm">Short-term milestone *</label>
-      <textarea id="shortTerm" required maxlength="1000" placeholder="What would you like to achieve in the next few weeks?"></textarea>
+      <textarea
+        id="shortTerm"
+        required
+        maxlength="1000"
+        placeholder="What would you like to achieve in the next few weeks?"
+      ></textarea>
 
       <label for="longTerm">Long-term milestone</label>
-      <textarea id="longTerm" maxlength="1000" placeholder="Where would you like to be in the future?"></textarea>
+      <textarea
+        id="longTerm"
+        maxlength="1000"
+        placeholder="Where would you like to be in the future?"
+      ></textarea>
+
+      <div class="tag" style="margin-top:28px;">Step 02 · Take action</div>
+      <h2>Create Your Weekly Action Plan</h2>
 
       <label for="weekly">One action for this week *</label>
-      <textarea id="weekly" required maxlength="1000" placeholder="Write one realistic action you can take this week"></textarea>
+      <textarea
+        id="weekly"
+        required
+        maxlength="1000"
+        placeholder="Write one realistic action you can take this week"
+      ></textarea>
 
-      <button type="submit">Create My Career Plan</button>
+      <p class="hint">
+        Tip: Choose an action that is specific, realistic and easy to track.
+      </p>
+
+      <div class="button-row">
+        <button type="submit">Create My Career Plan</button>
+        <button type="reset" class="secondary">Clear Form</button>
+      </div>
+
     </form>
 
     <section class="panel" id="result" aria-live="polite">
-      <div class="tag">Your personal plan</div>
-      <h2 id="planTitle"></h2>
-      <ul id="planList"></ul>
-      <p class="muted">Review your plan regularly and update it as your goals and experience develop.</p>
-      <button type="button" id="printPlan">Print My Plan</button>
-      <button type="button" id="editPlan">Edit My Plan</button>
+
+      <div class="plan-header">
+        <div class="tag">Your personal plan</div>
+        <h2 id="planTitle"></h2>
+        <p class="plan-meta" id="planDate"></p>
+        <p class="muted">Your goals, milestones and next actions in one place.</p>
+      </div>
+
+      <div class="plan-section">
+        <h3>Main Career Goal</h3>
+        <p id="displayGoal"></p>
+      </div>
+
+      <div class="plan-section">
+        <h3>Your Strengths and Interests</h3>
+        <p id="displayStrengths"></p>
+      </div>
+
+      <div class="plan-section">
+        <h3>Short-term Milestone</h3>
+        <p id="displayShort"></p>
+      </div>
+
+      <div class="plan-section">
+        <h3>Long-term Milestone</h3>
+        <p id="displayLong"></p>
+      </div>
+
+      <div class="plan-section">
+        <h3>This Week's Main Action</h3>
+        <p id="displayWeekly"></p>
+      </div>
+
+      <div class="plan-section">
+        <h3>Your Progress Tracker</h3>
+        <p class="muted">
+          Tick each action when you complete it. Your progress
+          percentage will update automatically.
+        </p>
+
+        <div class="progress-area">
+          <div class="progress-top">
+            <strong>Completed actions</strong>
+            <span id="progressText">0% complete</span>
+          </div>
+
+          <div
+            class="progress-track"
+            role="progressbar"
+            aria-label="Career plan completion"
+            aria-valuemin="0"
+            aria-valuemax="100"
+            aria-valuenow="0"
+            id="progressBar"
+          >
+            <div id="progressFill"></div>
+          </div>
+        </div>
+
+        <div class="task-list" id="taskList">
+
+          <label class="task-item">
+            <input type="checkbox" class="planTask">
+            <span>Research the career or skill I want to pursue.</span>
+          </label>
+
+          <label class="task-item">
+            <input type="checkbox" class="planTask">
+            <span>Identify the skills and knowledge I need to develop.</span>
+          </label>
+
+          <label class="task-item">
+            <input type="checkbox" class="planTask">
+            <span>Spend time learning and practising this week.</span>
+          </label>
+
+          <label class="task-item">
+            <input type="checkbox" class="planTask">
+            <span>Complete one small practical task or project.</span>
+          </label>
+
+          <label class="task-item">
+            <input type="checkbox" class="planTask">
+            <span>Review my progress and decide my next action.</span>
+          </label>
+
+        </div>
+      </div>
+
+      <p class="status-message" id="saveStatus" role="status">
+        Your plan is saved in this browser.
+      </p>
+
+      <div class="button-row">
+        <button type="button" id="copyPlan">Copy My Plan</button>
+        <button type="button" id="printPlan">Print / Save as PDF</button>
+        <button type="button" id="editPlan" class="secondary">Edit My Plan</button>
+        <button type="button" id="newPlan" class="danger">Create New Plan</button>
+      </div>
+
     </section>
+
+    <section class="tips">
+      <div class="tag">Helpful reminders</div>
+      <h2>Make Your Career Plan Work</h2>
+      <ul>
+        <li>Set clear goals that you can realistically work towards.</li>
+        <li>Break big ambitions into smaller milestones.</li>
+        <li>Practise your skills consistently instead of waiting for the perfect time.</li>
+        <li>Keep a record of your projects, learning and achievements.</li>
+        <li>Review your progress and adjust your plan when necessary.</li>
+      </ul>
+    </section>
+
   </main>
 
   <footer>
@@ -126,46 +568,231 @@
   </footer>
 
   <script>
-    const form = document.getElementById("planningForm");
-    const result = document.getElementById("result");
+    (function () {
+      const form = document.getElementById("planningForm");
+      const result = document.getElementById("result");
+      const storageKey = "nexora-career-plan-v1";
 
-    form.addEventListener("submit", function(event) {
-      event.preventDefault();
+      const fields = {
+        goal: document.getElementById("goal"),
+        strengths: document.getElementById("strengths"),
+        shortTerm: document.getElementById("shortTerm"),
+        longTerm: document.getElementById("longTerm"),
+        weekly: document.getElementById("weekly")
+      };
 
-      const fields = [
-        ["Main career goal", document.getElementById("goal").value],
-        ["Strengths", document.getElementById("strengths").value],
-        ["Short-term milestone", document.getElementById("shortTerm").value],
-        ["Long-term milestone", document.getElementById("longTerm").value],
-        ["This week's action", document.getElementById("weekly").value]
-      ];
+      const tasks = Array.from(
+        document.querySelectorAll(".planTask")
+      );
 
-      document.getElementById("planTitle").textContent =
-        "Career plan: " + fields[0][1].trim();
+      let currentPlan = null;
 
-      const list = document.getElementById("planList");
-      list.replaceChildren();
+      document.getElementById("year").textContent =
+        new Date().getFullYear();
 
-      fields.forEach(function(field) {
-        const li = document.createElement("li");
-        li.textContent = field[0] + ": " + (field[1].trim() || "Not added yet");
-        list.appendChild(li);
+      function getFormData() {
+        return {
+          goal: fields.goal.value.trim(),
+          strengths: fields.strengths.value.trim(),
+          shortTerm: fields.shortTerm.value.trim(),
+          longTerm: fields.longTerm.value.trim(),
+          weekly: fields.weekly.value.trim(),
+          completed: tasks.map(function (task) {
+            return task.checked;
+          }),
+          createdAt: new Date().toLocaleDateString()
+        };
+      }
+
+      function savePlan() {
+        if (!currentPlan) return;
+
+        try {
+          currentPlan.completed = tasks.map(function (task) {
+            return task.checked;
+          });
+
+          localStorage.setItem(
+            storageKey,
+            JSON.stringify(currentPlan)
+          );
+
+          document.getElementById("saveStatus").textContent =
+            "Your plan and progress are saved in this browser.";
+        } catch (error) {
+          document.getElementById("saveStatus").textContent =
+            "Browser storage is unavailable. You can still copy or print your plan.";
+        }
+      }
+
+      function updateProgress() {
+        const completed = tasks.filter(function (task) {
+          return task.checked;
+        }).length;
+
+        const percentage = Math.round(
+          (completed / tasks.length) * 100
+        );
+
+        document.getElementById("progressText").textContent =
+          percentage + "% complete";
+
+        document.getElementById("progressFill").style.width =
+          percentage + "%";
+
+        document.getElementById("progressBar").setAttribute(
+          "aria-valuenow",
+          percentage
+        );
+
+        savePlan();
+      }
+
+      function displayPlan(plan) {
+        currentPlan = plan;
+
+        document.getElementById("planTitle").textContent =
+          "Career Plan: " + plan.goal;
+
+        document.getElementById("planDate").textContent =
+          "Created on: " + (plan.createdAt || new Date().toLocaleDateString());
+
+        document.getElementById("displayGoal").textContent =
+          plan.goal || "Not added yet";
+
+        document.getElementById("displayStrengths").textContent =
+          plan.strengths || "Not added yet";
+
+        document.getElementById("displayShort").textContent =
+          plan.shortTerm || "Not added yet";
+
+        document.getElementById("displayLong").textContent =
+          plan.longTerm || "Not added yet";
+
+        document.getElementById("displayWeekly").textContent =
+          plan.weekly || "Not added yet";
+
+        tasks.forEach(function (task, index) {
+          task.checked = Boolean(
+            plan.completed && plan.completed[index]
+          );
+        });
+
+        result.style.display = "block";
+        updateProgress();
+      }
+
+      function fillForm(plan) {
+        fields.goal.value = plan.goal || "";
+        fields.strengths.value = plan.strengths || "";
+        fields.shortTerm.value = plan.shortTerm || "";
+        fields.longTerm.value = plan.longTerm || "";
+        fields.weekly.value = plan.weekly || "";
+      }
+
+      function getPlanText() {
+        if (!currentPlan) return "";
+
+        const completed = tasks.filter(function (task) {
+          return task.checked;
+        }).length;
+
+        const lines = [
+          "NEXORA AI - CAREER PLAN",
+          "Created: " + currentPlan.createdAt,
+          "",
+          "MAIN CAREER GOAL",
+          currentPlan.goal,
+          "",
+          "STRENGTHS AND INTERESTS",
+          currentPlan.strengths || "Not added yet",
+          "",
+          "SHORT-TERM MILESTONE",
+          currentPlan.shortTerm,
+          "",
+          "LONG-TERM MILESTONE",
+          currentPlan.longTerm || "Not added yet",
+          "",
+          "THIS WEEK'S ACTION",
+          currentPlan.weekly,
+          "",
+          "PROGRESS: " + completed + "/" + tasks.length + " actions completed",
+          "",
+          "ACTION CHECKLIST"
+        ];
+
+        tasks.forEach(function (task) {
+          lines.push(
+            (task.checked ? "[COMPLETED] " : "[PENDING] ") +
+            task.querySelector("span").textContent
+          );
+        });
+
+        return lines.join("\n");
+      }
+
+      form.addEventListener("submit", function (event) {
+        event.preventDefault();
+
+        if (!form.reportValidity()) return;
+
+        const plan = getFormData();
+
+        if (!plan.goal || !plan.shortTerm || !plan.weekly) {
+          alert("Please complete all required fields.");
+          return;
+        }
+
+        displayPlan(plan);
+        savePlan();
+
+        result.scrollIntoView({
+          behavior: "smooth",
+          block: "start"
+        });
       });
 
-      result.style.display = "block";
-      result.scrollIntoView({ behavior: "smooth", block: "start" });
-    });
+      form.addEventListener("reset", function () {
+        setTimeout(function () {
+          fields.goal.focus();
+        }, 0);
+      });
 
-    document.getElementById("printPlan").addEventListener("click", function() {
-      window.print();
-    });
+      tasks.forEach(function (task) {
+        task.addEventListener("change", updateProgress);
+      });
 
-    document.getElementById("editPlan").addEventListener("click", function() {
-      result.style.display = "none";
-      form.scrollIntoView({ behavior: "smooth", block: "start" });
-    });
+      document.getElementById("printPlan").addEventListener("click", function () {
+        window.print();
+      });
 
-    document.getElementById("year").textContent = new Date().getFullYear();
-  </script>
-</body>
-  </html>
+      document.getElementById("copyPlan").addEventListener("click", async function () {
+        const text = getPlanText();
+
+        if (!text) return;
+
+        try {
+          await navigator.clipboard.writeText(text);
+          document.getElementById("saveStatus").textContent =
+            "Career plan copied successfully.";
+        } catch (error) {
+          const temporary = document.createElement("textarea");
+          temporary.value = text;
+          temporary.style.position = "fixed";
+          temporary.style.opacity = "0";
+          document.body.appendChild(temporary);
+          temporary.select();
+
+          try {
+            const copied = document.execCommand("copy");
+            document.getElementById("saveStatus").textContent =
+              copied
+                ? "Career plan copied successfully."
+                : "Copy was unavailable. You can use Print / Save as PDF.";
+          } catch (copyError) {
+            document.getElementById("saveStatus").textContent =
+              "Copy was unavailable. You can use Print / Save as PDF.";
+          }
+
+          temporary.remove();
+       
