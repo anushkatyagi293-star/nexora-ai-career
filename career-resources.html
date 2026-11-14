@@ -3,10 +3,15 @@
 <head>
   <meta charset="UTF-8">
   <meta name="viewport" content="width=device-width, initial-scale=1.0">
-  <meta name="description" content="Explore career development resources for learning skills, building a portfolio, finding jobs and preparing for interviews with NEXORA AI.">
+  <meta name="description" content="Explore free learning platforms, career development resources, portfolio tips, job search guidance and interview preparation with NEXORA AI.">
+  <meta name="theme-color" content="#080b16">
   <title>Career Resources | NEXORA AI</title>
+
   <style>
     * { box-sizing: border-box; }
+
+    html { scroll-behavior: smooth; }
+
     body {
       margin: 0;
       font-family: Arial, sans-serif;
@@ -14,6 +19,7 @@
       background: linear-gradient(135deg, #080b16, #171536, #101b31);
       line-height: 1.6;
     }
+
     header {
       padding: 20px 6%;
       border-bottom: 1px solid #34324e;
@@ -23,45 +29,289 @@
       flex-wrap: wrap;
       gap: 15px;
     }
-    .brand { font-size: 22px; font-weight: bold; letter-spacing: 2px; }
+
+    .brand {
+      font-size: 22px;
+      font-weight: bold;
+      letter-spacing: 2px;
+    }
+
     .brand span { color: #a78bfa; }
-    nav { display: flex; gap: 15px; flex-wrap: wrap; }
-    nav a, a { color: #c4b5fd; text-decoration: none; }
+
+    nav {
+      display: flex;
+      gap: 15px;
+      flex-wrap: wrap;
+    }
+
+    nav a, a {
+      color: #c4b5fd;
+      text-decoration: none;
+    }
+
     nav a { font-size: 14px; }
-    main { max-width: 1050px; margin: auto; padding: 45px 20px 70px; }
-    .tag { color: #c4b5fd; text-transform: uppercase; letter-spacing: 2px; font-size: 12px; font-weight: bold; }
-    h1 { font-size: clamp(32px, 6vw, 46px); line-height: 1.15; }
-    .intro, .card p { color: #b7bfd3; }
-    .grid { display: grid; grid-template-columns: repeat(2, minmax(0, 1fr)); gap: 20px; margin-top: 30px; }
+
+    nav a:hover, a:hover {
+      color: #ffffff;
+    }
+
+    main {
+      max-width: 1100px;
+      margin: auto;
+      padding: 45px 20px 70px;
+    }
+
+    .hero {
+      padding: 20px 0 25px;
+      max-width: 800px;
+    }
+
+    .tag {
+      color: #c4b5fd;
+      text-transform: uppercase;
+      letter-spacing: 2px;
+      font-size: 12px;
+      font-weight: bold;
+    }
+
+    h1 {
+      font-size: clamp(32px, 6vw, 48px);
+      line-height: 1.15;
+      margin: 15px 0;
+    }
+
+    h1 span { color: #c084fc; }
+
+    .intro, .card p, .muted {
+      color: #b7bfd3;
+    }
+
+    .intro {
+      font-size: 16px;
+      max-width: 720px;
+    }
+
+    .hero-buttons {
+      display: flex;
+      gap: 12px;
+      flex-wrap: wrap;
+      margin-top: 24px;
+    }
+
+    .btn {
+      display: inline-block;
+      padding: 12px 19px;
+      border-radius: 10px;
+      background: linear-gradient(90deg, #7c3aed, #4f46e5);
+      color: white;
+      font-weight: bold;
+      border: 1px solid #8b5cf6;
+      cursor: pointer;
+      font-size: 14px;
+      text-align: center;
+    }
+
+    .btn.secondary {
+      background: transparent;
+      border: 1px solid #62548e;
+      color: #ddd6fe;
+    }
+
+    .btn:hover {
+      filter: brightness(1.15);
+      color: white;
+    }
+
+    .section-heading {
+      margin-top: 48px;
+      margin-bottom: 18px;
+    }
+
+    .section-heading h2 {
+      font-size: 27px;
+      margin: 5px 0;
+    }
+
+    .section-heading p {
+      color: #b7bfd3;
+      margin-top: 5px;
+    }
+
+    .search-box {
+      margin: 22px 0 15px;
+    }
+
+    .search-box input {
+      width: 100%;
+      padding: 15px 17px;
+      border-radius: 12px;
+      border: 1px solid #49416c;
+      background: #11172a;
+      color: white;
+      font-size: 15px;
+      outline: none;
+    }
+
+    .search-box input:focus {
+      border-color: #a78bfa;
+      box-shadow: 0 0 0 3px rgba(167,139,250,.15);
+    }
+
+    .filters {
+      display: flex;
+      flex-wrap: wrap;
+      gap: 9px;
+      margin: 17px 0 25px;
+    }
+
+    .filter-btn {
+      padding: 9px 15px;
+      border-radius: 30px;
+      border: 1px solid #49416c;
+      background: #15172c;
+      color: #d6d0ee;
+      cursor: pointer;
+      font-size: 13px;
+    }
+
+    .filter-btn.active,
+    .filter-btn:hover {
+      background: #6d35bd;
+      border-color: #a78bfa;
+      color: white;
+    }
+
+    .grid {
+      display: grid;
+      grid-template-columns: repeat(2, minmax(0, 1fr));
+      gap: 20px;
+    }
+
     .card {
-      background: rgba(20, 25, 45, .9);
+      background: rgba(20, 25, 45, .92);
       border: 1px solid #383653;
       border-radius: 18px;
-      padding: 25px;
+      padding: 24px;
+      transition: transform .2s, border-color .2s;
     }
-    .number { color: #a78bfa; font-size: 13px; font-weight: bold; letter-spacing: 2px; }
-    .card h2 { margin-top: 10px; }
-    .card a { display: inline-block; margin-top: 10px; font-weight: bold; }
+
+    .card:hover {
+      transform: translateY(-4px);
+      border-color: #8b5cf6;
+    }
+
+    .card[hidden] { display: none; }
+
+    .number {
+      color: #a78bfa;
+      font-size: 12px;
+      font-weight: bold;
+      letter-spacing: 2px;
+    }
+
+    .card h3 {
+      font-size: 21px;
+      margin: 9px 0;
+    }
+
+    .card p {
+      font-size: 14px;
+      min-height: 65px;
+    }
+
+    .card-link {
+      display: inline-block;
+      margin-top: 10px;
+      font-weight: bold;
+      font-size: 14px;
+    }
+
+    .resource-type {
+      display: inline-block;
+      font-size: 11px;
+      color: #ddd6fe;
+      background: rgba(124,58,237,.2);
+      border: 1px solid #55417d;
+      border-radius: 20px;
+      padding: 4px 9px;
+      margin-top: 7px;
+    }
+
+    .no-results {
+      display: none;
+      padding: 25px;
+      text-align: center;
+      border: 1px dashed #62548e;
+      border-radius: 14px;
+      color: #c4b5fd;
+      margin-top: 20px;
+    }
+
+    .tips-grid {
+      display: grid;
+      grid-template-columns: repeat(3, minmax(0, 1fr));
+      gap: 15px;
+      margin-top: 20px;
+    }
+
+    .tip {
+      background: rgba(20, 25, 45, .85);
+      border: 1px solid #383653;
+      border-radius: 15px;
+      padding: 20px;
+    }
+
+    .tip h3 {
+      font-size: 17px;
+      margin-top: 5px;
+    }
+
+    .tip p {
+      color: #b7bfd3;
+      font-size: 13px;
+      margin-bottom: 0;
+    }
+
     .cta {
-      margin-top: 30px;
-      padding: 25px;
-      background: rgba(20, 25, 45, .9);
-      border: 1px solid #383653;
+      margin-top: 45px;
+      padding: 30px;
+      background: linear-gradient(120deg, rgba(91,33,182,.28), rgba(20,25,45,.95));
+      border: 1px solid #62548e;
       border-radius: 18px;
     }
-    footer { text-align: center; border-top: 1px solid #34324e; padding: 25px 15px; color: #a5aec5; font-size: 13px; }
-    @media(max-width: 650px) {
+
+    .cta h2 { margin: 8px 0; }
+
+    .cta p { color: #c1c5d8; }
+
+    footer {
+      text-align: center;
+      border-top: 1px solid #34324e;
+      padding: 25px 15px;
+      color: #a5aec5;
+      font-size: 13px;
+    }
+
+    footer p { margin: 7px 0; }
+
+    @media(max-width: 700px) {
       header { padding: 16px 5%; }
       nav { gap: 10px; }
       nav a { font-size: 12px; }
       .grid { grid-template-columns: 1fr; }
+      .tips-grid { grid-template-columns: 1fr; }
+      .card p { min-height: auto; }
       .card, .cta { padding: 20px; }
+      main { padding-top: 30px; }
     }
   </style>
 </head>
+
 <body>
+
   <header>
     <div class="brand">NEXORA<span> AI</span></div>
+
     <nav aria-label="Main navigation">
       <a href="index.html">Home</a>
       <a href="about.html">About</a>
@@ -73,56 +323,289 @@
   </header>
 
   <main>
-    <div class="tag">Learn. Prepare. Grow.</div>
-    <h1>Career resources for your next step.</h1>
-    <p class="intro">Explore practical ideas and simple actions that can help you build skills, demonstrate your abilities and prepare for new opportunities.</p>
 
-    <section class="grid">
-      <article class="card">
-        <div class="number">RESOURCE 01</div>
-        <h2>Skill Development</h2>
-        <p>Identify the skills used in your target field. Choose one useful skill, follow a structured learning path and practise it regularly.</p>
-        <a href="roadmap.html">Create a learning roadmap →</a>
-      </article>
+    <section class="hero">
+      <div class="tag">Learn. Prepare. Grow.</div>
 
-      <article class="card">
-        <div class="number">RESOURCE 02</div>
-        <h2>Portfolio Building</h2>
-        <p>Show what you can do through selected projects, samples and practical work. Explain your role and the skills demonstrated in each project.</p>
-        <a href="resume.html">Prepare your resume →</a>
-      </article>
+      <h1>Career resources for your <span>next big step.</span></h1>
 
-      <article class="card">
-        <div class="number">RESOURCE 03</div>
-        <h2>Job Search Preparation</h2>
-        <p>Research roles carefully, compare required skills and qualifications, and tailor your application to the opportunity.</p>
-        <a href="assessment.html">Explore your strengths →</a>
-      </article>
+      <p class="intro">
+        Discover useful free learning platforms, build practical skills,
+        create a strong portfolio and prepare confidently for your career.
+        Your growth starts with one small step.
+      </p>
 
-      <article class="card">
-        <div class="number">RESOURCE 04</div>
-        <h2>Interview Preparation</h2>
-        <p>Practise introducing yourself, explaining your experience and describing real examples of how you solve problems or complete projects.</p>
-        <a href="career-planning.html">Plan your next steps →</a>
-      </article>
+      <div class="hero-buttons">
+        <a class="btn" href="#resource-library">Explore Resources</a>
+        <a class="btn secondary" href="roadmap.html">Create My Roadmap</a>
+      </div>
+    </section>
+
+    <section id="resource-library">
+
+      <div class="section-heading">
+        <div class="tag">Explore and learn</div>
+        <h2>Your Career Resource Library</h2>
+        <p>Find resources according to your interests and career goals.</p>
+      </div>
+
+      <div class="search-box">
+        <input
+          type="search"
+          id="resourceSearch"
+          placeholder="Search coding, design, skills, interviews..."
+          aria-label="Search career resources"
+        >
+      </div>
+
+      <div class="filters" aria-label="Filter resources">
+        <button class="filter-btn active" type="button" data-filter="all">All Resources</button>
+        <button class="filter-btn" type="button" data-filter="coding">Coding</button>
+        <button class="filter-btn" type="button" data-filter="design">Design</button>
+        <button class="filter-btn" type="button" data-filter="skills">Skills</button>
+        <button class="filter-btn" type="button" data-filter="jobs">Job Search</button>
+        <button class="filter-btn" type="button" data-filter="interview">Interview</button>
+      </div>
+
+      <div class="grid" id="resourceGrid">
+
+        <article class="card" data-category="coding skills">
+          <div class="number">RESOURCE 01</div>
+          <span class="resource-type">Coding & Development</span>
+          <h3>Learn Web Development</h3>
+          <p>
+            Learn HTML, CSS and JavaScript. Practise by creating websites
+            and small projects that demonstrate your abilities.
+          </p>
+          <a class="card-link" href="https://www.freecodecamp.org/learn/" target="_blank" rel="noopener noreferrer">
+            Explore free lessons →
+          </a>
+        </article>
+
+        <article class="card" data-category="coding skills">
+          <div class="number">RESOURCE 02</div>
+          <span class="resource-type">Programming</span>
+          <h3>Developer Documentation</h3>
+          <p>
+            Understand web technologies through tutorials, examples
+            and documentation for HTML, CSS and JavaScript.
+          </p>
+          <a class="card-link" href="https://developer.mozilla.org/" target="_blank" rel="noopener noreferrer">
+            Visit MDN Web Docs →
+          </a>
+        </article>
+
+        <article class="card" data-category="design skills">
+          <div class="number">RESOURCE 03</div>
+          <span class="resource-type">Creative & Design</span>
+          <h3>Improve Design Skills</h3>
+          <p>
+            Explore graphic design, visual communication, presentations
+            and creative projects. Practise by building your own designs.
+          </p>
+          <a class="card-link" href="https://www.canva.com/designschool/" target="_blank" rel="noopener noreferrer">
+            Explore Design School →
+          </a>
+        </article>
+
+        <article class="card" data-category="skills">
+          <div class="number">RESOURCE 04</div>
+          <span class="resource-type">Professional Skills</span>
+          <h3>Learn Digital Skills</h3>
+          <p>
+            Explore digital marketing, analytics and online business
+            learning resources to develop practical professional skills.
+          </p>
+          <a class="card-link" href="https://skillshop.withgoogle.com/" target="_blank" rel="noopener noreferrer">
+            Explore Google Skillshop →
+          </a>
+        </article>
+
+        <article class="card" data-category="jobs">
+          <div class="number">RESOURCE 05</div>
+          <span class="resource-type">Job Search</span>
+          <h3>Explore Job Opportunities</h3>
+          <p>
+            Research career options, understand job requirements and
+            explore employment and career services in India.
+          </p>
+          <a class="card-link" href="https://www.ncs.gov.in/" target="_blank" rel="noopener noreferrer">
+            Visit National Career Service →
+          </a>
+        </article>
+
+        <article class="card" data-category="interview skills">
+          <div class="number">RESOURCE 06</div>
+          <span class="resource-type">Interview Preparation</span>
+          <h3>Prepare for Interviews</h3>
+          <p>
+            Practise introducing yourself, explaining your projects
+            and answering questions clearly and confidently.
+          </p>
+          <a class="card-link" href="career-planning.html">
+            Create an interview preparation plan →
+          </a>
+        </article>
+
+        <article class="card" data-category="coding skills">
+          <div class="number">RESOURCE 07</div>
+          <span class="resource-type">Projects & Portfolio</span>
+          <h3>Build Your Project Portfolio</h3>
+          <p>
+            Organize your projects, show your work, explain your role
+            and provide evidence of the skills you have developed.
+          </p>
+          <a class="card-link" href="https://docs.github.com/en/get-started" target="_blank" rel="noopener noreferrer">
+            Learn GitHub basics →
+          </a>
+        </article>
+
+        <article class="card" data-category="jobs interview">
+          <div class="number">RESOURCE 08</div>
+          <span class="resource-type">Resume & Applications</span>
+          <h3>Create a Professional Resume</h3>
+          <p>
+            Present your education, skills, projects and experience
+            in a clear format that is easy for recruiters to understand.
+          </p>
+          <a class="card-link" href="resume.html">
+            Open NEXORA Resume Builder →
+          </a>
+        </article>
+
+      </div>
+
+      <div class="no-results" id="noResults" role="status">
+        No matching resources found. Try another keyword or select All Resources.
+      </div>
+
+    </section>
+
+    <section>
+      <div class="section-heading">
+        <div class="tag">Build your future</div>
+        <h2>Simple Steps for Career Growth</h2>
+        <p>Small, consistent actions can help you move towards your goals.</p>
+      </div>
+
+      <div class="tips-grid">
+
+        <article class="tip">
+          <div class="number">STEP 01</div>
+          <h3>Choose a Goal</h3>
+          <p>
+            Decide which career or skill you want to explore.
+            Keep your first goal realistic and specific.
+          </p>
+        </article>
+
+        <article class="tip">
+          <div class="number">STEP 02</div>
+          <h3>Practise Regularly</h3>
+          <p>
+            Set aside time to learn. Apply new knowledge through
+            exercises, projects and practical work.
+          </p>
+        </article>
+
+        <article class="tip">
+          <div class="number">STEP 03</div>
+          <h3>Show Your Progress</h3>
+          <p>
+            Save your best work, update your resume and review
+            your progress as you gain experience.
+          </p>
+        </article>
+
+      </div>
     </section>
 
     <section class="cta">
       <div class="tag">Keep moving forward</div>
       <h2>Turn learning into action.</h2>
-      <p class="intro">Choose one realistic goal, take a small step this week and review what you have learned.</p>
-      <a href="career-planning.html">Start career planning →</a>
+      <p>
+        Choose one realistic career goal, create a learning plan
+        and start building the skills that matter to you.
+      </p>
+
+      <div class="hero-buttons">
+        <a class="btn" href="career-planning.html">Start Career Planning →</a>
+        <a class="btn secondary" href="assessment.html">Discover My Strengths</a>
+      </div>
     </section>
+
   </main>
 
   <footer>
     <div class="brand">NEXORA<span> AI</span></div>
     <p>Career clarity for a changing world.</p>
-    <p>© <span id="year"></span> NEXORA AI</p>
+    <p>
+      <a href="index.html">Home</a> ·
+      <a href="about.html">About</a> ·
+      <a href="faq.html">FAQ</a> ·
+      <a href="contact.html">Contact</a>
+    </p>
+    <p>© <span id="year"></span> NEXORA AI. All rights reserved.</p>
   </footer>
 
   <script>
-    document.getElementById("year").textContent = new Date().getFullYear();
+    (function () {
+      const searchInput = document.getElementById("resourceSearch");
+      const cards = Array.from(document.querySelectorAll("#resourceGrid .card"));
+      const filterButtons = document.querySelectorAll(".filter-btn");
+      const noResults = document.getElementById("noResults");
+
+      let activeFilter = "all";
+
+      document.getElementById("year").textContent =
+        new Date().getFullYear();
+
+      function filterResources() {
+        const query = searchInput.value.trim().toLowerCase();
+        let visibleCount = 0;
+
+        cards.forEach(function (card) {
+          const categories = card.dataset.category.split(" ");
+          const text = card.textContent.toLowerCase();
+
+          const matchesCategory =
+            activeFilter === "all" || categories.includes(activeFilter);
+
+          const matchesSearch = text.includes(query);
+
+          const visible = matchesCategory && matchesSearch;
+
+          card.hidden = !visible;
+
+          if (visible) visibleCount++;
+        });
+
+        noResults.style.display =
+          visibleCount === 0 ? "block" : "none";
+      }
+
+      searchInput.addEventListener("input", filterResources);
+
+      filterButtons.forEach(function (button) {
+        button.addEventListener("click", function () {
+          activeFilter = button.dataset.filter;
+
+          filterButtons.forEach(function (item) {
+            const selected = item === button;
+            item.classList.toggle("active", selected);
+            item.setAttribute("aria-pressed", String(selected));
+          });
+
+          filterResources();
+        });
+
+        button.setAttribute(
+          "aria-pressed",
+          String(button.classList.contains("active"))
+        );
+      });
+    })();
   </script>
+
 </body>
-</html>
+  </html>
