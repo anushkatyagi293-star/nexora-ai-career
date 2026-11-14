@@ -1,385 +1,658 @@
 <!DOCTYPE html>
 <html lang="en">
 <head>
-<meta charset="UTF-8">
-<meta name="viewport" content="width=device-width, initial-scale=1.0">
-<meta name="description" content="Explore your interests, strengths and working preferences with the free NEXORA AI Skills Assessment.">
-<meta name="robots" content="index, follow">
-<meta name="theme-color" content="#080b16">
-<title>Free Skills Assessment | NEXORA AI</title>
+  <meta charset="UTF-8">
+  <meta name="viewport" content="width=device-width, initial-scale=1.0">
+  <meta name="description" content="Build a personalized starter career roadmap with skills, learning milestones and practical projects using NEXORA AI.">
+  <meta name="robots" content="index, follow">
+  <title>Career Roadmap | NEXORA AI</title>
 
-<style>
-*{box-sizing:border-box}
-html{scroll-behavior:smooth}
-body{margin:0;font-family:Arial,sans-serif;color:#f6f5ff;background:linear-gradient(135deg,#080b16,#171536,#101b31);line-height:1.7}
-header{padding:20px 6%;border-bottom:1px solid #34324e;display:flex;justify-content:space-between;align-items:center;flex-wrap:wrap;gap:15px}
-.brand{font-size:22px;font-weight:bold;letter-spacing:2px}
-.brand span{color:#a78bfa}
-nav{display:flex;gap:15px;flex-wrap:wrap}
-nav a,a{color:#c4b5fd;text-decoration:none}
-nav a{font-size:14px}
-nav a:hover,a:hover{color:white;text-decoration:underline}
-main{max-width:900px;margin:auto;padding:40px 20px 70px}
-.tag{color:#c4b5fd;text-transform:uppercase;letter-spacing:2px;font-size:12px;font-weight:bold}
-h1{font-size:clamp(32px,6vw,46px);line-height:1.2}
-.intro,.muted{color:#b7bfd3}
-.panel{background:rgba(20,25,45,.9);border:1px solid #383653;border-radius:18px;padding:24px;margin-top:22px}
-.info-panel{border-left:4px solid #a78bfa}
-.question{padding:19px 0;border-bottom:1px solid #34324e}
-.question:last-child{border-bottom:0}
-.question p{font-weight:bold;margin-top:0}
-label{display:block;padding:9px 12px;margin:6px 0;color:#d9d9e8;cursor:pointer;border:1px solid transparent;border-radius:9px}
-label:hover{background:rgba(167,139,250,.09);border-color:#62548f}
-input{accent-color:#a78bfa;margin-right:9px}
-button,.primary-link{display:inline-block;margin-top:20px;padding:13px 20px;border:0;border-radius:10px;background:linear-gradient(135deg,#a78bfa,#6366f1);color:white;font-size:15px;font-weight:bold;cursor:pointer}
-button:hover,.primary-link:hover{opacity:.9}
-.secondary-button{background:transparent;border:1px solid #8b7ac7;color:#e5ddff}
-#result{display:none}
-.result-profile{background:rgba(167,139,250,.09);border:1px solid #62548f;padding:18px;border-radius:13px;margin-top:18px}
-.result-profile h3{color:#e9ddff;margin-top:0}
-.career-list{padding-left:22px;color:#d9d9e8}
-.career-list li{margin:8px 0}
-.progress-track{height:8px;background:#292642;border-radius:20px;overflow:hidden;margin:15px 0}
-.progress-fill{height:100%;width:0%;background:linear-gradient(90deg,#a78bfa,#6366f1);transition:width .2s}
-.small-note{font-size:13px;color:#a5aec5}
-.explore-links{display:flex;flex-wrap:wrap;gap:12px;margin-top:15px}
-.explore-links a{padding:10px 14px;border:1px solid #514875;border-radius:9px}
-footer{text-align:center;border-top:1px solid #34324e;padding:25px 15px;color:#a5aec5;font-size:13px}
-@media(max-width:600px){header{padding:16px 5%}nav{gap:10px}nav a{font-size:12px}.panel{padding:18px}}
-</style>
+  <style>
+    * { box-sizing: border-box; }
+
+    html { scroll-behavior: smooth; }
+
+    body {
+      margin: 0;
+      font-family: Arial, sans-serif;
+      color: #f6f5ff;
+      background: linear-gradient(135deg, #080b16, #171536, #101b31);
+      line-height: 1.6;
+    }
+
+    header {
+      padding: 20px 6%;
+      border-bottom: 1px solid #34324e;
+      display: flex;
+      justify-content: space-between;
+      align-items: center;
+      flex-wrap: wrap;
+      gap: 15px;
+    }
+
+    .brand {
+      font-size: 22px;
+      font-weight: bold;
+      letter-spacing: 2px;
+    }
+
+    .brand span { color: #a78bfa; }
+
+    nav {
+      display: flex;
+      gap: 16px;
+      flex-wrap: wrap;
+    }
+
+    a { color: #c4b5fd; text-decoration: none; }
+    a:hover { color: white; }
+
+    nav a { font-size: 14px; }
+
+    main {
+      max-width: 900px;
+      margin: auto;
+      padding: 45px 20px 70px;
+    }
+
+    .tag {
+      color: #c4b5fd;
+      text-transform: uppercase;
+      letter-spacing: 2px;
+      font-size: 12px;
+      font-weight: bold;
+    }
+
+    h1 {
+      font-size: clamp(32px, 6vw, 48px);
+      line-height: 1.15;
+      margin-bottom: 12px;
+    }
+
+    h2 { line-height: 1.3; }
+
+    .intro { color: #b7bfd3; }
+
+    .panel {
+      background: rgba(20, 25, 45, .9);
+      border: 1px solid #383653;
+      border-radius: 18px;
+      padding: 25px;
+      margin-top: 25px;
+    }
+
+    label {
+      display: block;
+      margin: 17px 0 7px;
+      font-weight: bold;
+    }
+
+    input, select {
+      width: 100%;
+      padding: 13px;
+      border-radius: 10px;
+      border: 1px solid #484461;
+      background: #0d1222;
+      color: white;
+      font-size: 16px;
+    }
+
+    input:focus, select:focus {
+      outline: 2px solid #a78bfa;
+      border-color: #a78bfa;
+    }
+
+    button {
+      margin-top: 22px;
+      padding: 13px 20px;
+      border: 0;
+      border-radius: 10px;
+      background: linear-gradient(135deg, #a78bfa, #6366f1);
+      color: white;
+      font-size: 15px;
+      font-weight: bold;
+      cursor: pointer;
+    }
+
+    button:hover { opacity: .9; }
+
+    button:focus-visible, a:focus-visible {
+      outline: 2px solid white;
+      outline-offset: 3px;
+    }
+
+    .secondary-btn {
+      background: #292747;
+      border: 1px solid #625b91;
+    }
+
+    #result { display: none; }
+
+    .result-intro {
+      color: #c4b5fd;
+      overflow-wrap: anywhere;
+    }
+
+    .progress-track {
+      width: 100%;
+      height: 12px;
+      background: #0d1222;
+      border-radius: 20px;
+      overflow: hidden;
+      margin: 12px 0;
+      border: 1px solid #484461;
+    }
+
+    .progress-fill {
+      width: 0%;
+      height: 100%;
+      background: linear-gradient(90deg, #a78bfa, #6366f1, #d946ef);
+      transition: width .3s ease;
+    }
+
+    .progress-text {
+      color: #c4b5fd;
+      font-size: 14px;
+    }
+
+    .milestone {
+      background: #10172b;
+      border: 1px solid #393653;
+      border-radius: 13px;
+      padding: 16px;
+      margin: 14px 0;
+    }
+
+    .milestone h3 {
+      color: #c4b5fd;
+      margin: 0 0 7px;
+      font-size: 17px;
+    }
+
+    .milestone p {
+      color: #c5c9d9;
+      margin: 5px 0;
+    }
+
+    .skill-list {
+      display: grid;
+      grid-template-columns: 1fr 1fr;
+      gap: 12px;
+      margin-top: 15px;
+    }
+
+    .skill-item {
+      display: flex;
+      align-items: flex-start;
+      gap: 10px;
+      background: #10172b;
+      border: 1px solid #393653;
+      padding: 12px;
+      border-radius: 10px;
+      cursor: pointer;
+      font-weight: normal;
+      margin: 0;
+    }
+
+    .skill-item input {
+      width: 18px;
+      height: 18px;
+      margin: 3px 0 0;
+      accent-color: #a78bfa;
+      flex-shrink: 0;
+    }
+
+    .skill-item:has(input:checked) {
+      border-color: #a78bfa;
+      background: #201c40;
+    }
+
+    .note {
+      color: #a5aec5;
+      font-size: 13px;
+    }
+
+    .result-actions {
+      display: flex;
+      flex-wrap: wrap;
+      gap: 10px;
+    }
+
+    footer {
+      text-align: center;
+      border-top: 1px solid #34324e;
+      padding: 25px 15px;
+      color: #a5aec5;
+      font-size: 13px;
+    }
+
+    @media(max-width: 600px) {
+      header { padding: 16px 5%; }
+      nav { gap: 10px; }
+      nav a { font-size: 12px; }
+      .panel { padding: 19px; }
+      .skill-list { grid-template-columns: 1fr; }
+    }
+  </style>
 </head>
 
 <body>
-<header>
-<div class="brand">NEXORA<span> AI</span></div>
-<nav aria-label="Main navigation">
-<a href="index.html">Home</a>
-<a href="about.html">About</a>
-<a href="roadmap.html">Roadmap</a>
-<a href="resume.html">Resume</a>
-<a href="career-resources.html">Resources</a>
-<a href="career-planning.html">Planning</a>
-<a href="faq.html">FAQ</a>
-</nav>
-</header>
 
-<main>
-<div class="tag">Discover your strengths</div>
-<h1>Skills and Interests Assessment</h1>
-<p class="intro">Understand your interests, explore your working preferences and discover possible career directions with the free NEXORA AI Skills Assessment.</p>
+  <header>
+    <div class="brand">NEXORA<span> AI</span></div>
 
-<section class="panel info-panel">
-<h2>What is this assessment?</h2>
-<p class="muted">Answer 10 questions honestly. There are no right or wrong answers. Your result will highlight possible interest areas and career directions you can explore.</p>
-<p class="small-note">Estimated time: 3–5 minutes. No account or payment required.</p>
-</section>
+    <nav aria-label="Main navigation">
+      <a href="index.html">Home</a>
+      <a href="about.html">About</a>
+      <a href="assessment.html">Assessment</a>
+      <a href="resume.html">Resume</a>
+      <a href="career-resources.html">Resources</a>
+    </nav>
+  </header>
 
-<form id="quiz" class="panel" novalidate>
-<div class="tag">Your assessment</div>
-<h2>Answer these 10 questions</h2>
-<p class="muted" id="progressText">Questions answered: 0 of 10</p>
-<div class="progress-track"><div class="progress-fill" id="progressFill"></div></div>
+  <main>
+    <div class="tag">Your next step starts here</div>
 
-<div class="question">
-<p>1. Which activity sounds most interesting to you?</p>
-<label><input type="radio" name="q1" value="creative"> Designing, creating or making content</label>
-<label><input type="radio" name="q1" value="analytical"> Solving problems and working with data</label>
-<label><input type="radio" name="q1" value="people"> Helping, teaching or working with people</label>
-<label><input type="radio" name="q1" value="practical"> Building, coding or working with technology</label>
-</div>
+    <h1>Build your career roadmap.</h1>
 
-<div class="question">
-<p>2. Which task would you prefer?</p>
-<label><input type="radio" name="q2" value="creative"> Developing a new idea or visual concept</label>
-<label><input type="radio" name="q2" value="analytical"> Finding patterns and improving a process</label>
-<label><input type="radio" name="q2" value="people"> Explaining something to another person</label>
-<label><input type="radio" name="q2" value="practical"> Creating or fixing a digital tool</label>
-</div>
+    <p class="intro">
+      Turn your career goal into a practical learning journey.
+      Get suggested skills, projects and an 8-week starter plan.
+    </p>
 
-<div class="question">
-<p>3. What motivates you most?</p>
-<label><input type="radio" name="q3" value="creative"> Expressing ideas in original ways</label>
-<label><input type="radio" name="q3" value="analytical"> Understanding how things work</label>
-<label><input type="radio" name="q3" value="people"> Making a positive difference for others</label>
-<label><input type="radio" name="q3" value="practical"> Learning how to build useful things</label>
-</div>
+    <section class="panel">
+      <form id="roadmapForm" novalidate>
 
-<div class="question">
-<p>4. Which type of project would you enjoy?</p>
-<label><input type="radio" name="q4" value="creative"> Designing a website, video or creative campaign</label>
-<label><input type="radio" name="q4" value="analytical"> Researching information and comparing results</label>
-<label><input type="radio" name="q4" value="people"> Organizing a group activity or helping a team</label>
-<label><input type="radio" name="q4" value="practical"> Developing a website, application or technical project</label>
-</div>
+        <label for="goal">What is your career goal?</label>
+        <input
+          id="goal"
+          type="text"
+          maxlength="100"
+          placeholder="e.g. Become an AI website developer"
+          required
+        >
 
-<div class="question">
-<p>5. How do you approach a difficult problem?</p>
-<label><input type="radio" name="q5" value="creative"> Think of different and original possibilities</label>
-<label><input type="radio" name="q5" value="analytical"> Break it into smaller steps and examine facts</label>
-<label><input type="radio" name="q5" value="people"> Discuss it with others and understand their views</label>
-<label><input type="radio" name="q5" value="practical"> Try different solutions and learn by doing</label>
-</div>
+        <label for="interest">Which area interests you most?</label>
 
-<div class="question">
-<p>6. Which skill would you most like to improve?</p>
-<label><input type="radio" name="q6" value="creative"> Graphic design, writing or creative thinking</label>
-<label><input type="radio" name="q6" value="analytical"> Research, mathematics or data analysis</label>
-<label><input type="radio" name="q6" value="people"> Communication, leadership or teaching</label>
-<label><input type="radio" name="q6" value="practical"> Coding, web development or technical skills</label>
-</div>
+        <select id="interest" required>
+          <option value="">Choose an area</option>
+          <option value="technology">Technology and AI</option>
+          <option value="creative">Creative design and media</option>
+          <option value="business">Business and management</option>
+          <option value="people">Education and people-focused work</option>
+          <option value="other">Other career area</option>
+        </select>
 
-<div class="question">
-<p>7. Which work environment appeals to you?</p>
-<label><input type="radio" name="q7" value="creative"> A flexible environment with creative freedom</label>
-<label><input type="radio" name="q7" value="analytical"> A structured environment focused on research</label>
-<label><input type="radio" name="q7" value="people"> A collaborative environment with regular interaction</label>
-<label><input type="radio" name="q7" value="practical"> A hands-on environment with practical challenges</label>
-</div>
+        <label for="level">What is your current level?</label>
 
-<div class="question">
-<p>8. What would you enjoy learning in your free time?</p>
-<label><input type="radio" name="q8" value="creative"> Art, music, photography or content creation</label>
-<label><input type="radio" name="q8" value="analytical"> Science, finance, research or logical puzzles</label>
-<label><input type="radio" name="q8" value="people"> Languages, psychology or communication</label>
-<label><input type="radio" name="q8" value="practical"> Technology, programming or digital tools</label>
-</div>
+        <select id="level" required>
+          <option value="">Choose your level</option>
+          <option value="beginner">Just starting</option>
+          <option value="learning">Already learning</option>
+          <option value="experienced">Some experience</option>
+        </select>
 
-<div class="question">
-<p>9. Which responsibility would you prefer?</p>
-<label><input type="radio" name="q9" value="creative"> Creating designs and original content</label>
-<label><input type="radio" name="q9" value="analytical"> Reviewing information and finding useful insights</label>
-<label><input type="radio" name="q9" value="people"> Supporting customers, students or team members</label>
-<label><input type="radio" name="q9" value="practical"> Building, testing or maintaining digital products</label>
-</div>
+        <button type="submit">Generate My Roadmap</button>
+      </form>
+    </section>
 
-<div class="question">
-<p>10. What would make you feel most satisfied?</p>
-<label><input type="radio" name="q10" value="creative"> Seeing an original idea become reality</label>
-<label><input type="radio" name="q10" value="analytical"> Solving a challenging question accurately</label>
-<label><input type="radio" name="q10" value="people"> Helping someone learn or achieve something</label>
-<label><input type="radio" name="q10" value="practical"> Building something that works successfully</label>
-</div>
+    <section class="panel" id="result" aria-live="polite" tabindex="-1">
 
-<button type="submit" id="submitBtn">Discover My Results</button>
-<p class="small-note">Please answer all 10 questions to view your assessment.</p>
-</form>
+      <div class="tag">Your personalized starter plan</div>
 
-<section class="panel" id="result" aria-live="polite">
-<div class="tag">Your assessment results</div>
-<h2 id="resultTitle"></h2>
-<p class="muted" id="resultText"></p>
+      <h2 id="resultTitle">Your Career Roadmap</h2>
 
-<div class="result-profile">
-<h3>Your strongest areas</h3>
-<p id="strengthText" class="muted"></p>
-</div>
+      <p class="result-intro" id="resultIntro"></p>
 
-<div class="result-profile">
-<h3>Career areas to explore</h3>
-<ul id="careerList" class="career-list"></ul>
-</div>
+      <h3>Your learning progress</h3>
 
-<div class="result-profile">
-<h3>Suggested next steps</h3>
-<ul class="career-list">
-<li>Choose one area that genuinely interests you.</li>
-<li>Learn its basic concepts and required skills.</li>
-<li>Try a small project or practical exercise.</li>
-<li>Review your progress and explore other options.</li>
-</ul>
-</div>
+      <div
+        class="progress-track"
+        role="progressbar"
+        aria-label="Roadmap skill completion"
+        aria-valuemin="0"
+        aria-valuemax="100"
+        aria-valuenow="0"
+        id="progressBar"
+      >
+        <div class="progress-fill" id="progressFill"></div>
+      </div>
 
-<p class="small-note">This is a basic self-reflection activity, not a validated aptitude test, professional diagnosis or guarantee of career suitability.</p>
-<a class="primary-link" href="roadmap.html">Create a Career Roadmap</a>
-<br>
-<button type="button" id="retry" class="secondary-button">Retake Assessment</button>
-</section>
+      <p class="progress-text" id="progressText">0% completed · 0 of 0 skills</p>
 
-<section class="panel">
-<div class="tag">Continue exploring</div>
-<h2>Take your next career-planning step</h2>
-<p class="muted">Your assessment is only a starting point. Explore other NEXORA AI tools to organize your learning and career preparation.</p>
-<div class="explore-links">
-<a href="roadmap.html">Career Roadmap</a>
-<a href="resume.html">Resume Builder</a>
-<a href="career-resources.html">Career Resources</a>
-<a href="career-planning.html">Career Planning</a>
-<a href="progress.html">Progress Tracker</a>
-<a href="index.html">Home</a>
-</div>
-</section>
-</main>
+      <h3>8-week learning milestones</h3>
+      <div id="milestones"></div>
 
-<footer>
-<div class="brand">NEXORA<span> AI</span></div>
-<p>Career clarity for a changing world.</p>
-<p><a href="about.html">About</a> | <a href="contact.html">Contact</a> | <a href="faq.html">FAQ</a></p>
-<p>© <span id="year"></span> NEXORA AI</p>
-</footer>
+      <h3>Skills checklist</h3>
+      <p class="note">Tick each skill when you have practised or learned it.</p>
+      <div class="skill-list" id="skillList"></div>
 
-<script>
-(function () {
-  "use strict";
+      <h3>Your practical project</h3>
+      <div class="milestone">
+        <p id="projectText"></p>
+      </div>
 
-  const quiz = document.getElementById("quiz");
-  const result = document.getElementById("result");
-  const progressText = document.getElementById("progressText");
-  const progressFill = document.getElementById("progressFill");
+      <h3>Next steps</h3>
+      <div class="milestone">
+        <p id="nextSteps"></p>
+      </div>
 
-  const profiles = {
-    creative: {
-      title: "Creative Thinking",
-      description: "Your answers suggest that you enjoy imagination, originality and expressing ideas. You may enjoy activities where design, storytelling and creative problem-solving are important.",
-      careers: ["Graphic Design", "UI/UX Design", "Content Writing", "Video Editing", "Digital Marketing", "Creative Media"],
-      strengths: "Creative expression, visual thinking, idea development and communication."
-    },
-    analytical: {
-      title: "Analytical Thinking",
-      description: "Your answers suggest that you enjoy logic, research, understanding information and solving problems.",
-      careers: ["Data Analysis", "Research", "Financial Analysis", "Business Analysis", "Quality Analysis", "Scientific Research"],
-      strengths: "Logical reasoning, research, structured thinking and problem-solving."
-    },
-    people: {
-      title: "People-Focused Interests",
-      description: "Your answers suggest that you value communication, cooperation and helping others.",
-      careers: ["Teaching and Education", "Human Resources", "Customer Support", "Communication", "Community Work", "Training and Development"],
-      strengths: "Communication, empathy, teamwork, listening and supporting others."
-    },
-    practical: {
-      title: "Practical and Technical Thinking",
-      description: "Your answers suggest that you enjoy learning through practice, using technology and creating useful solutions.",
-      careers: ["Web Development", "Software Development", "IT Support", "Technical Design", "Quality Testing", "Digital Product Development"],
-      strengths: "Practical learning, technical curiosity, experimentation and implementation."
-    }
-  };
+      <p class="note">
+        This is an educational starter roadmap generated from your selections.
+        It is not a live AI-generated recommendation and does not guarantee
+        employment, income or professional results.
+      </p>
 
-  const questionNames = [];
-  for (let i = 1; i <= 10; i++) {
-    questionNames.push("q" + i);
-  }
+      <div class="result-actions">
+        <button type="button" id="printBtn">Print / Save Roadmap</button>
+        <button type="button" class="secondary-btn" id="resetBtn">
+          Create Another Roadmap
+        </button>
+      </div>
 
-  function updateProgress() {
-    let answered = 0;
+    </section>
+  </main>
 
-    questionNames.forEach(function (name) {
-      if (quiz.querySelector('input[name="' + name + '"]:checked')) {
-        answered++;
-      }
-    });
+  <footer>
+    <div class="brand">NEXORA<span> AI</span></div>
+    <p>Career clarity for a changing world.</p>
+    <p>© <span id="year"></span> NEXORA AI</p>
+  </footer>
 
-    progressText.textContent = "Questions answered: " + answered + " of 10";
-    progressFill.style.width = (answered * 10) + "%";
-  }
+  <script>
+    (function () {
+      "use strict";
 
-  quiz.addEventListener("change", updateProgress);
+      const form = document.getElementById("roadmapForm");
+      const result = document.getElementById("result");
+      const milestones = document.getElementById("milestones");
+      const skillList = document.getElementById("skillList");
 
-  quiz.addEventListener("submit", function (event) {
-    event.preventDefault();
-    event.stopPropagation();
+      const careerPlans = {
+        technology: {
+          skills: [
+            "Computer and internet fundamentals",
+            "HTML and CSS basics",
+            "JavaScript programming",
+            "Problem-solving and logical thinking",
+            "AI tools and responsible AI use",
+            "Website building and testing",
+            "GitHub and project publishing",
+            "Portfolio and documentation"
+          ],
+          weeks: [
+            ["Week 1", "Understand computer fundamentals, the internet and how websites work."],
+            ["Week 2", "Learn HTML structure and create a simple webpage."],
+            ["Week 3", "Practise CSS, colours, layouts and responsive design."],
+            ["Week 4", "Learn JavaScript variables, functions and events."],
+            ["Week 5", "Explore AI tools and practise solving simple problems."],
+            ["Week 6", "Build a small website or interactive project."],
+            ["Week 7", "Test your project, fix errors and learn GitHub basics."],
+            ["Week 8", "Publish your project and prepare a beginner portfolio."]
+          ],
+          project: "Build a responsive personal website or a small career information website. Include useful content, working navigation and a mobile-friendly layout."
+        },
 
-    const counts = {
-      creative: 0,
-      analytical: 0,
-      people: 0,
-      practical: 0
-    };
+        creative: {
+          skills: [
+            "Visual design fundamentals",
+            "Colour theory and typography",
+            "Graphic design tools",
+            "Photo editing",
+            "Video editing",
+            "Creative storytelling",
+            "Portfolio development",
+            "Client communication"
+          ],
+          weeks: [
+            ["Week 1", "Explore design styles, visual balance, colours and typography."],
+            ["Week 2", "Practise basic graphic design using beginner-friendly tools."],
+            ["Week 3", "Learn photo editing and image composition."],
+            ["Week 4", "Practise video editing, transitions and simple storytelling."],
+            ["Week 5", "Create posters, thumbnails or social media designs."],
+            ["Week 6", "Complete a small creative project from start to finish."],
+            ["Week 7", "Organize your best work into a portfolio."],
+            ["Week 8", "Improve your portfolio and learn how to present your work."]
+          ],
+          project: "Create a mini creative portfolio with three original designs, one edited image and one short video."
+        },
 
-    let unanswered = null;
+        business: {
+          skills: [
+            "Communication skills",
+            "Business fundamentals",
+            "Time management",
+            "Planning and organization",
+            "Research and analysis",
+            "Presentation skills",
+            "Digital productivity tools",
+            "Problem-solving"
+          ],
+          weeks: [
+            ["Week 1", "Understand basic business concepts and common business roles."],
+            ["Week 2", "Practise professional communication and writing."],
+            ["Week 3", "Learn planning, scheduling and organization."],
+            ["Week 4", "Practise research and basic data interpretation."],
+            ["Week 5", "Explore spreadsheets and digital productivity tools."],
+            ["Week 6", "Prepare a simple business plan or project proposal."],
+            ["Week 7", "Create a short presentation explaining your idea."],
+            ["Week 8", "Review your work and organize it into a portfolio."]
+          ],
+          project: "Prepare a simple business idea, a basic budget, a target audience description and a short presentation."
+        },
 
-    questionNames.forEach(function (name) {
-      const selected = quiz.querySelector('input[name="' + name + '"]:checked');
+        people: {
+          skills: [
+            "Active listening",
+            "Clear communication",
+            "Research skills",
+            "Writing and documentation",
+            "Presentation skills",
+            "Empathy and teamwork",
+            "Digital learning tools",
+            "Organization and planning"
+          ],
+          weeks: [
+            ["Week 1", "Explore education and people-focused career options."],
+            ["Week 2", "Practise listening, speaking and clear communication."],
+            ["Week 3", "Learn how to research reliable information."],
+            ["Week 4", "Practise writing explanations and learning notes."],
+            ["Week 5", "Explore digital learning and presentation tools."],
+            ["Week 6", "Create a short educational or informational resource."],
+            ["Week 7", "Ask someone to review your work and give feedback."],
+            ["Week 8", "Improve your resource and organize your work samples."]
+          ],
+          project: "Create a short beginner-friendly guide, learning presentation or informational resource about a topic you understand."
+        },
 
-      if (!selected) {
-        if (!unanswered) {
-          unanswered = name;
+        other: {
+          skills: [
+            "Career research",
+            "Industry knowledge",
+            "Communication skills",
+            "Core subject knowledge",
+            "Digital literacy",
+            "Problem-solving",
+            "Practical experience",
+            "Portfolio development"
+          ],
+          weeks: [
+            ["Week 1", "Research your chosen career and understand its responsibilities."],
+            ["Week 2", "Identify common qualifications and entry requirements."],
+            ["Week 3", "List the essential skills required in this field."],
+            ["Week 4", "Begin learning the most important foundational skills."],
+            ["Week 5", "Explore tools and resources used in this industry."],
+            ["Week 6", "Try a small practical activity related to your career."],
+            ["Week 7", "Collect feedback and identify areas to improve."],
+            ["Week 8", "Prepare a learning summary and plan your next stage."]
+          ],
+          project: "Create a small practical project or work sample related to your chosen career. Research the standards used in that field and compare your work."
         }
-        return;
+      };
+
+      const levelGuidance = {
+        beginner: "Start with the fundamentals. Take your time, use beginner-friendly lessons and practise one skill at a time.",
+        learning: "Build on what you already know. Follow a structured learning schedule and complete practical exercises.",
+        experienced: "Strengthen your existing knowledge. Focus on advanced practice, quality improvement and portfolio-ready work."
+      };
+
+      function addMilestone(title, description) {
+        const card = document.createElement("div");
+        card.className = "milestone";
+
+        const heading = document.createElement("h3");
+        heading.textContent = title;
+
+        const paragraph = document.createElement("p");
+        paragraph.textContent = description;
+
+        card.appendChild(heading);
+        card.appendChild(paragraph);
+        milestones.appendChild(card);
       }
 
-      if (Object.prototype.hasOwnProperty.call(counts, selected.value)) {
-        counts[selected.value]++;
+      function updateProgress() {
+        const boxes = skillList.querySelectorAll('input[type="checkbox"]');
+        const total = boxes.length;
+        const completed = skillList.querySelectorAll('input[type="checkbox"]:checked').length;
+        const percent = total ? Math.round((completed / total) * 100) : 0;
+
+        document.getElementById("progressFill").style.width = percent + "%";
+        document.getElementById("progressText").textContent =
+          percent + "% completed · " + completed + " of " + total + " skills";
+
+        const bar = document.getElementById("progressBar");
+        bar.setAttribute("aria-valuenow", String(percent));
       }
-    });
 
-    if (unanswered) {
-      alert("Please answer all 10 questions before viewing your results.");
+      form.addEventListener("submit", function (event) {
+        event.preventDefault();
+        event.stopPropagation();
 
-      const firstMissing = quiz.querySelector(
-        'input[name="' + unanswered + '"]'
-      );
+        const goal = document.getElementById("goal").value.trim();
+        const interest = document.getElementById("interest").value;
+        const level = document.getElementById("level").value;
 
-      if (firstMissing) {
-        firstMissing.scrollIntoView({
-          behavior: "smooth",
-          block: "center"
+        if (!goal || !interest || !level) {
+          alert("Please complete all three fields to generate your roadmap.");
+          return;
+        }
+
+        const plan = careerPlans[interest];
+
+        if (!plan) {
+          alert("Please select a valid career area.");
+          return;
+        }
+
+        document.getElementById("resultTitle").textContent =
+          "Roadmap for: " + goal;
+
+        document.getElementById("resultIntro").textContent =
+          levelGuidance[level] +
+          " Your selected career area has a suggested 8-week starter plan.";
+
+        milestones.replaceChildren();
+        skillList.replaceChildren();
+
+        plan.weeks.forEach(function (week) {
+          addMilestone(week[0], week[1]);
         });
+
+        plan.skills.forEach(function (skill, index) {
+          const label = document.createElement("label");
+          label.className = "skill-item";
+
+          const checkbox = document.createElement("input");
+          checkbox.type = "checkbox";
+          checkbox.id = "skill-" + index;
+          checkbox.addEventListener("change", updateProgress);
+
+          const span = document.createElement("span");
+          span.textContent = skill;
+
+          label.appendChild(checkbox);
+          label.appendChild(span);
+          skillList.appendChild(label);
+        });
+
+        document.getElementById("projectText").textContent = plan.project;
+
+        document.getElementById("nextSteps").textContent =
+          "Start with Week 1, set aside regular learning time, practise each skill, " +
+          "save your project work and review your progress every week. " +
+          "After Week 8, identify the next skills and projects needed for " + goal + ".";
+
+        updateProgress();
+
+        result.style.display = "block";
+
+        result.scrollIntoView({
+          behavior: "smooth",
+          block: "start"
+        });
+      });
+
+      document.getElementById("resetBtn").addEventListener("click", function () {
+        form.reset();
+        milestones.replaceChildren();
+        skillList.replaceChildren();
+        result.style.display = "none";
+        updateProgress();
+
+        form.scrollIntoView({
+          behavior: "smooth",
+          block: "start"
+        });
+
+        document.getElementById("goal").focus();
+      });
+
+      document.getElementById("printBtn").addEventListener("click", function () {
+        window.print();
+      });
+
+      document.getElementById("year").textContent =
+        new Date().getFullYear();
+
+    })();
+  </script>
+
+  <style>
+    @media print {
+      body {
+        background: white !important;
+        color: black !important;
       }
 
-      return;
+      header, footer, #roadmapForm, .result-actions {
+        display: none !important;
+      }
+
+      main { max-width: 100%; padding: 0; }
+
+      #result {
+        display: block !important;
+        border: none;
+        background: white;
+        color: black;
+      }
+
+      .milestone, .skill-item {
+        background: white;
+        color: black;
+        border: 1px solid #aaa;
+        break-inside: avoid;
+      }
+
+      .tag, .result-intro, .progress-text, .milestone h3,
+      .milestone p, .note, .skill-item {
+        color: black !important;
+      }
+
+      .progress-track { border: 1px solid #777; }
     }
+  </style>
 
-    const highestScore = Math.max.apply(null, Object.values(counts));
-
-    const winners = Object.keys(counts).filter(function (category) {
-      return counts[category] === highestScore;
-    });
-
-    const resultTitle = document.getElementById("resultTitle");
-    const resultText = document.getElementById("resultText");
-    const strengthText = document.getElementById("strengthText");
-    const careerList = document.getElementById("careerList");
-
-    resultTitle.textContent = winners.length > 1
-      ? "Your Combined Interest Profile"
-      : profiles[winners[0]].title;
-
-    resultText.textContent = winners.length > 1
-      ? "Your answers show a combination of interests. You may enjoy exploring more than one type of activity."
-      : profiles[winners[0]].description;
-
-    strengthText.textContent = winners.map(function (category) {
-      return profiles[category].title + " (" + counts[category] + "/10)";
-    }).join(" • ");
-
-    careerList.textContent = "";
-
-    const suggestedCareers = new Set();
-
-    winners.forEach(function (category) {
-      profiles[category].careers.forEach(function (career) {
-        suggestedCareers.add(career);
-      });
-    });
-
-    suggestedCareers.forEach(function (career) {
-      const item = document.createElement("li");
-      item.textContent = career;
-      careerList.appendChild(item);
-    });
-
-    result.style.display = "block";
-
-    result.scrollIntoView({
-      behavior: "smooth",
-      block: "start"
-    });
-  });
-
-  document.getElementById("retry").addEventListener("click", function () {
-    quiz.reset();
-    result.style.display = "none";
-    updateProgress();
-
-    quiz.scrollIntoView({
-      behavior: "smooth",
-      block: "start"
-    });
-  });
-
-  document.getElementById("year").textContent = new Date().getFullYear();
-
-  updateProgress();
-})();
-</script>
 </body>
-  </html>
+</html>
