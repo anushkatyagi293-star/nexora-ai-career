@@ -3,10 +3,15 @@
 <head>
   <meta charset="UTF-8">
   <meta name="viewport" content="width=device-width, initial-scale=1.0">
-  <meta name="description" content="Create a professional resume draft with the NEXORA AI Resume Builder.">
+  <meta name="description" content="Create, edit and print a professional resume with the free NEXORA AI Resume Builder.">
+  <meta name="robots" content="index, follow">
   <title>Resume Builder | NEXORA AI</title>
+
   <style>
     * { box-sizing: border-box; }
+
+    html { scroll-behavior: smooth; }
+
     body {
       margin: 0;
       font-family: Arial, sans-serif;
@@ -14,6 +19,7 @@
       background: linear-gradient(135deg, #080b16, #171536, #101b31);
       line-height: 1.6;
     }
+
     header {
       padding: 20px 6%;
       border-bottom: 1px solid #34324e;
@@ -23,15 +29,50 @@
       flex-wrap: wrap;
       gap: 15px;
     }
-    .brand { font-size: 22px; font-weight: bold; letter-spacing: 2px; }
+
+    .brand {
+      font-size: 22px;
+      font-weight: bold;
+      letter-spacing: 2px;
+    }
+
     .brand span { color: #a78bfa; }
-    nav { display: flex; gap: 15px; flex-wrap: wrap; }
-    nav a, a { color: #c4b5fd; text-decoration: none; }
+
+    nav {
+      display: flex;
+      gap: 15px;
+      flex-wrap: wrap;
+    }
+
+    nav a, a {
+      color: #c4b5fd;
+      text-decoration: none;
+    }
+
     nav a { font-size: 14px; }
-    main { max-width: 900px; margin: auto; padding: 40px 20px 70px; }
-    .tag { color: #c4b5fd; text-transform: uppercase; letter-spacing: 2px; font-size: 12px; font-weight: bold; }
-    h1 { font-size: clamp(32px, 6vw, 46px); line-height: 1.15; }
+    nav a:hover { color: white; }
+
+    main {
+      max-width: 950px;
+      margin: auto;
+      padding: 40px 20px 70px;
+    }
+
+    .tag {
+      color: #c4b5fd;
+      text-transform: uppercase;
+      letter-spacing: 2px;
+      font-size: 12px;
+      font-weight: bold;
+    }
+
+    h1 {
+      font-size: clamp(32px, 6vw, 46px);
+      line-height: 1.15;
+    }
+
     .intro, .muted { color: #b7bfd3; }
+
     .panel {
       background: rgba(20, 25, 45, .9);
       border: 1px solid #383653;
@@ -39,13 +80,21 @@
       padding: 24px;
       margin-top: 22px;
     }
+
     .fields {
       display: grid;
       grid-template-columns: repeat(2, minmax(0, 1fr));
       gap: 15px;
     }
+
     .full { grid-column: 1 / -1; }
-    label { display: block; margin-bottom: 6px; font-weight: bold; }
+
+    label {
+      display: block;
+      margin-bottom: 6px;
+      font-weight: bold;
+    }
+
     input, textarea {
       width: 100%;
       padding: 12px;
@@ -55,9 +104,19 @@
       color: white;
       font: inherit;
     }
-    textarea { min-height: 90px; resize: vertical; }
+
+    input:focus, textarea:focus {
+      outline: 2px solid #a78bfa;
+      border-color: #a78bfa;
+    }
+
+    textarea {
+      min-height: 90px;
+      resize: vertical;
+    }
+
     button {
-      margin-top: 20px;
+      margin: 10px 8px 0 0;
       padding: 13px 19px;
       border: 0;
       border-radius: 10px;
@@ -67,17 +126,81 @@
       font-weight: bold;
       cursor: pointer;
     }
+
+    button:hover { opacity: .9; }
+
+    button:focus-visible {
+      outline: 2px solid white;
+      outline-offset: 3px;
+    }
+
+    .secondary-btn {
+      background: #292747;
+      border: 1px solid #625b91;
+    }
+
     #output { display: none; }
-    #resumeText {
-      white-space: pre-wrap;
-      background: #0d1222;
-      border: 1px solid #484461;
+
+    .resume-paper {
+      background: #ffffff;
+      color: #202438;
       border-radius: 10px;
-      padding: 20px;
-      color: #e6e4f4;
+      padding: 32px;
+      margin-top: 18px;
       overflow-wrap: anywhere;
     }
-    footer { text-align: center; border-top: 1px solid #34324e; padding: 25px 15px; color: #a5aec5; font-size: 13px; }
+
+    .resume-name {
+      font-size: 30px;
+      font-weight: bold;
+      color: #28234d;
+      margin: 0;
+      line-height: 1.25;
+    }
+
+    .resume-contact {
+      color: #555;
+      font-size: 13px;
+      border-bottom: 2px solid #8b75d7;
+      padding-bottom: 14px;
+      margin: 8px 0 20px;
+      overflow-wrap: anywhere;
+    }
+
+    .resume-section { margin: 18px 0; }
+
+    .resume-section h3 {
+      color: #51418a;
+      font-size: 15px;
+      letter-spacing: 1px;
+      border-bottom: 1px solid #d8d1ed;
+      padding-bottom: 5px;
+      margin: 0 0 8px;
+    }
+
+    .resume-section p {
+      white-space: pre-wrap;
+      margin: 0;
+      color: #333;
+      font-size: 14px;
+    }
+
+    .empty-section { color: #777 !important; font-style: italic; }
+
+    .help-text {
+      color: #a5aec5;
+      font-size: 13px;
+      margin-top: 6px;
+    }
+
+    footer {
+      text-align: center;
+      border-top: 1px solid #34324e;
+      padding: 25px 15px;
+      color: #a5aec5;
+      font-size: 13px;
+    }
+
     @media(max-width: 600px) {
       header { padding: 16px 5%; }
       nav { gap: 10px; }
@@ -85,135 +208,451 @@
       .fields { grid-template-columns: 1fr; }
       .full { grid-column: auto; }
       .panel { padding: 18px; }
+      .resume-paper { padding: 20px; }
+      .resume-name { font-size: 24px; }
+    }
+
+    @media print {
+      @page { margin: 15mm; }
+
+      body {
+        background: white !important;
+        color: black !important;
+      }
+
+      header, footer, #resumeForm, .tag,
+      .result-actions, #copyStatus, .preview-heading,
+      .preview-note {
+        display: none !important;
+      }
+
+      main {
+        max-width: 100%;
+        padding: 0;
+        margin: 0;
+      }
+
+      #output {
+        display: block !important;
+        border: none !important;
+        background: white !important;
+        padding: 0 !important;
+        margin: 0 !important;
+      }
+
+      .resume-paper {
+        display: block !important;
+        border: none !important;
+        box-shadow: none !important;
+        padding: 0 !important;
+        margin: 0 !important;
+        border-radius: 0 !important;
+      }
+
+      .resume-section { break-inside: avoid; }
     }
   </style>
 </head>
+
 <body>
-  <header>
-    <div class="brand">NEXORA<span> AI</span></div>
-    <nav aria-label="Main navigation">
-      <a href="index.html">Home</a>
-      <a href="about.html">About</a>
-      <a href="roadmap.html">Roadmap</a>
-      <a href="assessment.html">Assessment</a>
-      <a href="career-resources.html">Resources</a>
-    </nav>
-  </header>
 
-  <main>
-    <div class="tag">Build your professional profile</div>
-    <h1>Resume Builder.</h1>
-    <p class="intro">Enter your details to create a clean, editable resume draft that you can copy and refine.</p>
+<header>
+  <div class="brand">NEXORA<span> AI</span></div>
 
-    <form id="resumeForm" class="panel">
-      <div class="fields">
-        <div>
-          <label for="name">Full name *</label>
-          <input id="name" required maxlength="100" placeholder="Your full name">
-        </div>
-        <div>
-          <label for="email">Email address *</label>
-          <input id="email" type="email" required maxlength="150" placeholder="you@example.com">
-        </div>
-        <div>
-          <label for="phone">Phone number</label>
-          <input id="phone" maxlength="30" placeholder="Your phone number">
-        </div>
-        <div>
-          <label for="location">Location</label>
-          <input id="location" maxlength="100" placeholder="City, Country">
-        </div>
-        <div class="full">
-          <label for="skills">Skills *</label>
-          <textarea id="skills" required maxlength="1000" placeholder="List your key skills"></textarea>
-        </div>
-        <div class="full">
-          <label for="education">Education *</label>
-          <textarea id="education" required maxlength="1500" placeholder="Your qualification, institution and year"></textarea>
-        </div>
-        <div class="full">
-          <label for="experience">Work experience</label>
-          <textarea id="experience" maxlength="2000" placeholder="Roles, responsibilities and achievements"></textarea>
-        </div>
-        <div class="full">
-          <label for="summary">Professional summary</label>
-          <textarea id="summary" maxlength="1000" placeholder="A short introduction about your professional strengths"></textarea>
-        </div>
+  <nav aria-label="Main navigation">
+    <a href="index.html">Home</a>
+    <a href="about.html">About</a>
+    <a href="roadmap.html">Roadmap</a>
+    <a href="assessment.html">Assessment</a>
+    <a href="career-resources.html">Resources</a>
+  </nav>
+</header>
+
+<main>
+  <div class="tag">Build your professional profile</div>
+
+  <h1>Resume Builder.</h1>
+
+  <p class="intro">
+    Create a professional resume draft using your own details.
+    Preview, edit, copy and save your resume as a PDF.
+  </p>
+
+  <form id="resumeForm" class="panel" novalidate>
+
+    <h2>Personal Information</h2>
+
+    <div class="fields">
+
+      <div>
+        <label for="name">Full name *</label>
+        <input id="name" required maxlength="100" placeholder="Your full name">
       </div>
-      <button type="submit">Generate Resume Draft</button>
-    </form>
 
-    <section class="panel" id="output" aria-live="polite">
-      <div class="tag">Your resume draft</div>
-      <h2>Review your details</h2>
-      <pre id="resumeText"></pre>
+      <div>
+        <label for="email">Email address *</label>
+        <input id="email" type="email" required maxlength="150" placeholder="you@example.com">
+      </div>
+
+      <div>
+        <label for="phone">Phone number</label>
+        <input id="phone" type="tel" maxlength="30" placeholder="Your phone number">
+      </div>
+
+      <div>
+        <label for="location">Location</label>
+        <input id="location" maxlength="100" placeholder="City, Country">
+      </div>
+
+      <div class="full">
+        <label for="headline">Professional headline</label>
+        <input id="headline" maxlength="120" placeholder="e.g. Aspiring Web Developer">
+      </div>
+
+      <div class="full">
+        <label for="summary">Professional summary</label>
+        <textarea id="summary" maxlength="1200" placeholder="Write a short introduction about your strengths and career goals"></textarea>
+        <p class="help-text">Tip: Mention your experience, strengths and the type of work you want to do.</p>
+      </div>
+
+      <div class="full">
+        <label for="skills">Skills *</label>
+        <textarea id="skills" required maxlength="1500" placeholder="e.g. HTML, CSS, JavaScript, Communication, Graphic Design"></textarea>
+      </div>
+
+      <div class="full">
+        <label for="education">Education *</label>
+        <textarea id="education" required maxlength="2000" placeholder="Qualification, institution and year"></textarea>
+      </div>
+
+      <div class="full">
+        <label for="experience">Work Experience</label>
+        <textarea id="experience" maxlength="2500" placeholder="Job title, organization, dates and responsibilities. If you are a beginner, mention internships or relevant experience."></textarea>
+      </div>
+
+      <div class="full">
+        <label for="projects">Projects</label>
+        <textarea id="projects" maxlength="2000" placeholder="Project name, what you created and tools you used"></textarea>
+      </div>
+
+      <div class="full">
+        <label for="certifications">Certifications and Courses</label>
+        <textarea id="certifications" maxlength="1500" placeholder="Course name, certificate or training provider"></textarea>
+      </div>
+
+      <div class="full">
+        <label for="languages">Languages</label>
+        <input id="languages" maxlength="300" placeholder="e.g. English, Hindi">
+      </div>
+
+      <div class="full">
+        <label for="portfolio">Portfolio or LinkedIn link</label>
+        <input id="portfolio" type="url" maxlength="300" placeholder="https://example.com">
+      </div>
+
+    </div>
+
+    <button type="submit">Generate My Resume</button>
+    <button type="reset" class="secondary-btn">Clear All Details</button>
+
+  </form>
+
+  <section class="panel" id="output" aria-live="polite" tabindex="-1">
+
+    <div class="tag">Your resume draft</div>
+
+    <h2 class="preview-heading">Professional Resume Preview</h2>
+
+    <p class="muted preview-note">
+      Review your information below. If you want to make changes,
+      edit the form and generate your resume again.
+    </p>
+
+    <div class="resume-paper" id="resumePaper">
+
+      <h2 class="resume-name" id="previewName"></h2>
+
+      <p class="resume-contact" id="previewContact"></p>
+
+      <div class="resume-section" id="headlineSection">
+        <h3>PROFESSIONAL HEADLINE</h3>
+        <p id="previewHeadline"></p>
+      </div>
+
+      <div class="resume-section" id="summarySection">
+        <h3>PROFESSIONAL SUMMARY</h3>
+        <p id="previewSummary"></p>
+      </div>
+
+      <div class="resume-section">
+        <h3>SKILLS</h3>
+        <p id="previewSkills"></p>
+      </div>
+
+      <div class="resume-section">
+        <h3>EDUCATION</h3>
+        <p id="previewEducation"></p>
+      </div>
+
+      <div class="resume-section" id="experienceSection">
+        <h3>WORK EXPERIENCE</h3>
+        <p id="previewExperience"></p>
+      </div>
+
+      <div class="resume-section" id="projectsSection">
+        <h3>PROJECTS</h3>
+        <p id="previewProjects"></p>
+      </div>
+
+      <div class="resume-section" id="certificationsSection">
+        <h3>CERTIFICATIONS AND COURSES</h3>
+        <p id="previewCertifications"></p>
+      </div>
+
+      <div class="resume-section" id="languagesSection">
+        <h3>LANGUAGES</h3>
+        <p id="previewLanguages"></p>
+      </div>
+
+      <div class="resume-section" id="portfolioSection">
+        <h3>PORTFOLIO / LINKEDIN</h3>
+        <p id="previewPortfolio"></p>
+      </div>
+
+    </div>
+
+    <div class="result-actions">
       <button type="button" id="copyButton">Copy Resume</button>
-      <p id="copyStatus" class="muted" role="status"></p>
-    </section>
-  </main>
+      <button type="button" id="downloadButton">Download / Save as PDF</button>
+      <button type="button" id="editButton" class="secondary-btn">Edit Details</button>
+      <button type="button" id="newButton" class="secondary-btn">Create New Resume</button>
+    </div>
 
-  <footer>
-    <div class="brand">NEXORA<span> AI</span></div>
-    <p>Career clarity for a changing world.</p>
-    <p>© <span id="year"></span> NEXORA AI</p>
-  </footer>
+    <p id="copyStatus" class="muted" role="status"></p>
 
-  <script>
-    const form = document.getElementById("resumeForm");
-    const output = document.getElementById("output");
-    const resumeText = document.getElementById("resumeText");
+    <p class="help-text">
+      PDF tip: Select "Save as PDF" in your browser's print menu.
+    </p>
 
-    form.addEventListener("submit", function(event) {
-      event.preventDefault();
+  </section>
 
-      const name = document.getElementById("name").value.trim();
-      const email = document.getElementById("email").value.trim();
-      const phone = document.getElementById("phone").value.trim();
-      const location = document.getElementById("location").value.trim();
-      const skills = document.getElementById("skills").value.trim();
-      const education = document.getElementById("education").value.trim();
-      const experience = document.getElementById("experience").value.trim();
-      const summary = document.getElementById("summary").value.trim();
+</main>
 
-      if (!name || !email || !skills || !education) {
-        alert("Please complete all required fields.");
-        return;
-      }
+<footer>
+  <div class="brand">NEXORA<span> AI</span></div>
+  <p>Career clarity for a changing world.</p>
+  <p>© <span id="year"></span> NEXORA AI</p>
+</footer>
 
-      const draft = [
-        name.toUpperCase(),
-        [email, phone, location].filter(Boolean).join(" | "),
-        "",
-        "PROFESSIONAL SUMMARY",
-        summary || "Add a short professional introduction here.",
-        "",
-        "SKILLS",
-        skills,
-        "",
-        "EDUCATION",
-        education,
-        "",
-        "WORK EXPERIENCE",
-        experience || "Add relevant work experience or projects here."
-      ].join("\n");
+<script>
+(function () {
+  "use strict";
 
-      resumeText.textContent = draft;
-      output.style.display = "block";
-      document.getElementById("copyStatus").textContent = "";
-      output.scrollIntoView({ behavior: "smooth", block: "start" });
+  const form = document.getElementById("resumeForm");
+  const output = document.getElementById("output");
+  const copyStatus = document.getElementById("copyStatus");
+
+  const fields = [
+    "name",
+    "email",
+    "phone",
+    "location",
+    "headline",
+    "summary",
+    "skills",
+    "education",
+    "experience",
+    "projects",
+    "certifications",
+    "languages",
+    "portfolio"
+  ];
+
+  function getValue(id) {
+    return document.getElementById(id).value.trim();
+  }
+
+  function setPreview(id, value, sectionId) {
+    const element = document.getElementById(id);
+    element.textContent = value || "Not provided";
+
+    if (sectionId) {
+      document.getElementById(sectionId).style.display =
+        value ? "block" : "none";
+    }
+
+    if (!value) {
+      element.classList.add("empty-section");
+    } else {
+      element.classList.remove("empty-section");
+    }
+  }
+
+  function buildResume() {
+    const name = getValue("name");
+    const email = getValue("email");
+    const skills = getValue("skills");
+    const education = getValue("education");
+
+    if (!name || !email || !skills || !education) {
+      alert("Please complete all required fields marked with *.");
+      return false;
+    }
+
+    if (!/^[^\s@]+@[^\s@]+\.[^\s@]+$/.test(email)) {
+      alert("Please enter a valid email address.");
+      document.getElementById("email").focus();
+      return false;
+    }
+
+    const contact = [
+      email,
+      getValue("phone"),
+      getValue("location")
+    ].filter(Boolean).join(" | ");
+
+    document.getElementById("previewName").textContent = name;
+    document.getElementById("previewContact").textContent = contact;
+
+    setPreview("previewHeadline", getValue("headline"), "headlineSection");
+    setPreview("previewSummary", getValue("summary"), "summarySection");
+    setPreview("previewSkills", skills);
+    setPreview("previewEducation", education);
+    setPreview("previewExperience", getValue("experience"), "experienceSection");
+    setPreview("previewProjects", getValue("projects"), "projectsSection");
+    setPreview("previewCertifications", getValue("certifications"), "certificationsSection");
+    setPreview("previewLanguages", getValue("languages"), "languagesSection");
+    setPreview("previewPortfolio", getValue("portfolio"), "portfolioSection");
+
+    copyStatus.textContent = "";
+    output.style.display = "block";
+
+    output.scrollIntoView({
+      behavior: "smooth",
+      block: "start"
     });
 
-    document.getElementById("copyButton").addEventListener("click", async function() {
-      const status = document.getElementById("copyStatus");
+    return true;
+  }
+
+  form.addEventListener("submit", function (event) {
+    event.preventDefault();
+    event.stopPropagation();
+    buildResume();
+  });
+
+  function getResumeText() {
+    const sections = [
+      ["PROFESSIONAL HEADLINE", "headline"],
+      ["PROFESSIONAL SUMMARY", "summary"],
+      ["SKILLS", "skills"],
+      ["EDUCATION", "education"],
+      ["WORK EXPERIENCE", "experience"],
+      ["PROJECTS", "projects"],
+      ["CERTIFICATIONS AND COURSES", "certifications"],
+      ["LANGUAGES", "languages"],
+      ["PORTFOLIO / LINKEDIN", "portfolio"]
+    ];
+
+    const lines = [
+      getValue("name").toUpperCase(),
+      [
+        getValue("email"),
+        getValue("phone"),
+        getValue("location")
+      ].filter(Boolean).join(" | "),
+      ""
+    ];
+
+    sections.forEach(function (section) {
+      const value = getValue(section[1]);
+
+      if (value) {
+        lines.push(section[0]);
+        lines.push(value);
+        lines.push("");
+      }
+    });
+
+    return lines.join("\n");
+  }
+
+  document.getElementById("copyButton").addEventListener("click", async function () {
+    const text = getResumeText();
+
+    try {
+      if (navigator.clipboard && window.isSecureContext) {
+        await navigator.clipboard.writeText(text);
+      } else {
+        throw new Error("Clipboard unavailable");
+      }
+
+      copyStatus.textContent = "Your resume has been copied successfully.";
+    } catch (error) {
+      const temporary = document.createElement("textarea");
+      temporary.value = text;
+      temporary.style.position = "fixed";
+      temporary.style.opacity = "0";
+
+      document.body.appendChild(temporary);
+      temporary.select();
+
+      let copied = false;
+
       try {
-        await navigator.clipboard.writeText(resumeText.textContent);
-        status.textContent = "Resume copied successfully.";
-      } catch (error) {
-        status.textContent = "Please select and copy the resume text manually.";
+        copied = document.execCommand("copy");
+      } catch (copyError) {
+        copied = false;
       }
+
+      temporary.remove();
+
+      copyStatus.textContent = copied
+        ? "Your resume has been copied successfully."
+        : "Automatic copy is unavailable. Select the resume preview text and copy it manually.";
+    }
+  });
+
+  document.getElementById("downloadButton").addEventListener("click", function () {
+    window.print();
+  });
+
+  document.getElementById("editButton").addEventListener("click", function () {
+    document.getElementById("name").focus();
+
+    form.scrollIntoView({
+      behavior: "smooth",
+      block: "start"
+    });
+  });
+
+  document.getElementById("newButton").addEventListener("click", function () {
+    const confirmed = confirm("Start a new resume? Your current form details will be cleared.");
+
+    if (!confirmed) return;
+
+    form.reset();
+    output.style.display = "none";
+    copyStatus.textContent = "";
+
+    form.scrollIntoView({
+      behavior: "smooth",
+      block: "start"
     });
 
-    document.getElementById("year").textContent = new Date().getFullYear();
-  </script>
+    document.getElementById("name").focus();
+  });
+
+  form.addEventListener("reset", function () {
+    output.style.display = "none";
+    copyStatus.textContent = "";
+  });
+
+  document.getElementById("year").textContent =
+    new Date().getFullYear();
+
+})();
+</script>
+
 </body>
-  </html>
+</html>
